@@ -23,13 +23,13 @@ const Form02 = () => {
 
     // Función para navegar a la página anterior
     const onClickPrev = () => {
-        navigate("/web/datos-organizacion")
+        navigate("/datos-organizacion")
     }
 
     // Función para navegar a la página siguiente y actualizar los datos del representante en el store
     const onClickNext = () => {
         // Navega a la página de detalles del permiso
-        navigate("/web/detalles-permiso")
+        navigate("/detalles-permiso")
 
         // Crea un objeto con los datos del formulario
         const data = {

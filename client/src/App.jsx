@@ -1,7 +1,7 @@
 import Home from "./components/admin-panel/Home"
 import Footer from "./components/ui/Footer"
 import Navbar from "./components/ui/Navbar"
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import WebForm from "./components/webform/WebForm"
 
 const App = () => {
@@ -11,10 +11,8 @@ const App = () => {
       <Navbar />
       {/* Definición de las rutas de la aplicación */}
       <Routes>
-        {/* Redirecciona la ruta raíz ("/") a "web" */}
-        <Route path="/" element={<Navigate to="web" />} />
         {/* Ruta para el formulario web */}
-        <Route path="web/*" element={<WebForm />} />
+        <Route path="*" element={<WebForm />} />
         {/* Ruta para el panel de administración */}
         <Route path="admin" element={<Home />} />
       </Routes>

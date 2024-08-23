@@ -17,7 +17,7 @@ const Form04 = () => {
 
     // Función para navegar a la página anterior
     const onClickPrev = () => {
-        navigate("/web/detalles-permiso")
+        navigate("/detalles-permiso")
     }
 
     // Función para manejar la acción del botón "Enviar solicitud"
@@ -26,7 +26,7 @@ const Form04 = () => {
         setDocsData(files)
         // Muestra un mensaje de éxito
         alert("Solicitud enviada")
-        navigate("/web/solicitud-enviada")
+        navigate("/solicitud-enviada")
     }
 
     return (
