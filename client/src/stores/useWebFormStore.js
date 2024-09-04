@@ -36,7 +36,7 @@ const useWebFormStore = create((set) => ({
             purpose: ""
         },
         // Documentos adjuntos
-        docsData: {}
+        docsData: []
     },
 
     // Función para actualizar los datos de la organización

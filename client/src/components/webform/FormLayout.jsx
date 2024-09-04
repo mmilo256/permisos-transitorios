@@ -2,7 +2,7 @@ import Button from "../ui/Button"
 import Container from "../ui/Container"
 import Heading from "../ui/Heading"
 
-const FormLayout = ({ children, title, onClickPrev, onClickNext, btnTextPrev = "Volver", btnTextNext = "Siguiente" }) => {
+const FormLayout = ({ children, title, onClickPrev, onClickNext, btnTextPrev = "Volver", btnTextNext = "Siguiente", isValid = true }) => {
     return (
         // Contenedor principal del formulario
         <form>
@@ -18,7 +18,7 @@ const FormLayout = ({ children, title, onClickPrev, onClickNext, btnTextPrev = "
                     {/* Botón para retroceder a la página anterior, si se proporciona la función onClickPrev */}
                     {onClickPrev && <Button variant="secondary" type="button" onClick={onClickPrev}>{btnTextPrev}</Button>}
                     {/* Botón para avanzar al siguiente paso, si se proporciona la función onClickNext */}
-                    {onClickNext && <Button variant="primary" type="button" onClick={onClickNext}>{btnTextNext}</Button>}
+                    {onClickNext && <Button disabled={!isValid} variant="primary" type="button" onClick={onClickNext}>{btnTextNext}</Button>}
                 </div>
             </Container>
         </form>

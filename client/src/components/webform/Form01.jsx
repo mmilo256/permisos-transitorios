@@ -51,11 +51,11 @@ const Form01 = () => {
         <FormLayout title="1. Datos de la organización" onClickPrev={onClickPrev} onClickNext={onClickNext}>
             <div className="grid grid-cols-2 gap-5">
                 {/* Renderiza los campos del formulario con valores y manejadores de cambio */}
-                <Input value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre o razón social" />
-                <Input value={rut} onChange={(e) => { setRut(e.target.value) }} label="RUT" />
-                <Input value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
-                <Input value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" label="Correo electrónico" />
-                <Input value={phone} onChange={(e) => { setPhone(e.target.value) }} type="number" label="Teléfono" />
+                <Input placeholder="Nombre de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre o razón social" />
+                <Input placeholder="77.777.777-K" value={rut} onChange={(e) => { setRut(e.target.value) }} label="RUT" />
+                <Input placeholder="José Pinto Pérez 1037" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
+                <Input placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" label="Correo electrónico" />
+                <Input placeholder="+569 4225 0219" value={phone} onChange={(e) => { setPhone(e.target.value) }} type="number" label="Teléfono" />
                 <Input value={orgType} onChange={(e) => { setOrgType(e.target.value) }} type="select" options={orgTypes} label="Tipo de organización" />
             </div>
         </FormLayout>

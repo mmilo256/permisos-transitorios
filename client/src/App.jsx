@@ -1,8 +1,8 @@
-import Home from "./components/admin-panel/Home"
 import Footer from "./components/ui/Footer"
 import Navbar from "./components/ui/Navbar"
 import { Routes, Route } from "react-router-dom"
 import WebForm from "./components/webform/WebForm"
+import AdminPanel from "./components/admin-panel/AdminPanel"
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         {/* Ruta para el formulario web */}
         <Route path="*" element={<WebForm />} />
         {/* Ruta para el panel de administración */}
-        <Route path="admin" element={<Home />} />
+        <Route path="admin/*" element={<AdminPanel />} />
       </Routes>
       {/* Componente del pie de página */}
       <Footer />

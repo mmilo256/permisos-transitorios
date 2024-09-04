@@ -62,10 +62,10 @@ const Form03 = () => {
             <div className="grid grid-cols-4 gap-5">
                 {/* Campos del formulario para detalles del permiso */}
                 <div className="col-span-2">
-                    <Input value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre de la actividad" />
+                    <Input placeholder="Ej: Bingo bailable" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre de la actividad" />
                 </div>
                 <div className="col-span-2">
-                    <Input value={place} onChange={(e) => { setPlace(e.target.value) }} label="Lugar de realización" />
+                    <Input placeholder="ej: Gimnasio Municipal" value={place} onChange={(e) => { setPlace(e.target.value) }} label="Lugar de realización" />
                 </div>
                 <Input value={startDate} onChange={(e) => { setStartDate(e.target.value) }} type="date" label="Fecha de inicio" />
                 <Input value={startTime} onChange={(e) => { setStartTime(e.target.value) }} type="time" label="Hora de inicio" />
@@ -79,11 +79,11 @@ const Form03 = () => {
                 <RadioGroup selectedValue={food} onChange={setFood} label="Venta de alimentos" options={opYesNo} name="alimentos" />
                 <div className="col-span-4">
                     {/* Campo de texto para descripción de la actividad */}
-                    <Input value={description} onChange={(e) => { setDescription(e.target.value) }} type="textarea" label="Descripción de la actividad" />
+                    <Input placeholder="Breve descripción de la actividad a realizar" value={description} onChange={(e) => { setDescription(e.target.value) }} type="textarea" label="Descripción de la actividad" />
                 </div>
                 <div className="col-span-4">
                     {/* Campo de texto para destino de los fondos */}
-                    <Input value={purpose} onChange={(e) => { setPurpose(e.target.value) }} type="textarea" label="Destino de los fondos" />
+                    <Input placeholder="Indicar para qué se usarán los fondos recaudados" value={purpose} onChange={(e) => { setPurpose(e.target.value) }} type="textarea" label="Destino de los fondos" />
                 </div>
             </div>
         </FormLayout>
