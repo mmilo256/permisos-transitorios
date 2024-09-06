@@ -20,10 +20,12 @@ const FormGuide = () => {
                 Además, debe descargar el siguiente documento, imprimirlo, obtener la firma del representante legal de su organización, y luego subirlo al formulario junto
                 con los demás antecedentes.
             </p>
-            <Button variant="secondary">Descargar documento</Button>
+            <div className="flex justify-center sm:justify-start py-4">
+                <Button variant="secondary">Descargar documento</Button>
+            </div>
             <p className="my-3">Una vez teniendo todos los documentos digitalizados, puede continuar con la solicitud.</p>
-            <div className="max-w-fit ml-auto">
-                <Button type="link" href="datos-organizacion" variant="primary">Iniciar solicitud</Button>
+            <div className="ml-auto sm:max-w-48 bg-red-200">
+                <Button type="link" fullWidth href="datos-organizacion" variant="primary">Iniciar solicitud</Button>
             </div>
         </Container>
     )

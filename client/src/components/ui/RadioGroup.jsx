@@ -10,12 +10,12 @@ const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
                         <input
                             className="mr-1"
                             type="radio"
-                            value={op} // Valor asociado al botón de radio
+                            value={op.value} // Valor asociado al botón de radio
                             name={name} // Nombre del grupo de botones de radio para agrupación
-                            checked={selectedValue === op} // Marca el botón de radio si su valor coincide con el valor seleccionado
+                            checked={selectedValue === op.value} // Marca el botón de radio si su valor coincide con el valor seleccionado
                             onChange={(e) => onChange(e.target.value)} // Llama a la función onChange con el valor seleccionado
                         />
-                        <span className="text-sm">{op}</span> {/* Texto asociado al botón de radio */}
+                        <span className="text-sm">{op.label}</span> {/* Texto asociado al botón de radio */}
                     </label>
                 ))}
             </div>

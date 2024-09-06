@@ -12,4 +12,6 @@ app.use(e.json())
 
 app.use("/api/solicitudes", applicationRouter)
 
-app.listen(3000)
+app.listen(3000, () => {
+    console.log("Running...")
+})

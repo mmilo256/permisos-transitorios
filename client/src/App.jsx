@@ -6,7 +6,7 @@ import AdminPanel from "./components/admin-panel/AdminPanel"
 
 const App = () => {
   return (
-    <div className="bg-slate-50 text-slate-800">
+    <div className="bg-slate-50 min-h-svh text-slate-800">
       {/* Componente de navegación principal */}
       <Navbar />
       {/* Definición de las rutas de la aplicación */}

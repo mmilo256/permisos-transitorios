@@ -3,6 +3,7 @@ import Input from "../ui/Input"
 import FormLayout from "./FormLayout"
 import { useState } from "react"
 import useWebFormStore from "../../stores/useWebFormStore"
+import { formatRut, onlyNumberInput } from "../../utils/utils"
 
 // Tipos de organización disponibles en el select
 const orgTypes = ["Junta de Vecinos", "Club Deportivo", "Agrupación", "Otro"]
@@ -49,13 +50,13 @@ const Form01 = () => {
     return (
         // Renderiza el layout del formulario con título y botones para navegación
         <FormLayout title="1. Datos de la organización" onClickPrev={onClickPrev} onClickNext={onClickNext}>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-5">
                 {/* Renderiza los campos del formulario con valores y manejadores de cambio */}
-                <Input placeholder="Nombre de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre o razón social" />
-                <Input placeholder="77.777.777-K" value={rut} onChange={(e) => { setRut(e.target.value) }} label="RUT" />
-                <Input placeholder="José Pinto Pérez 1037" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
-                <Input placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" label="Correo electrónico" />
-                <Input placeholder="+569 4225 0219" value={phone} onChange={(e) => { setPhone(e.target.value) }} type="number" label="Teléfono" />
+                <Input max={90} placeholder="Nombre de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre o razón social" />
+                <Input max={12} placeholder="77.777.777-K" value={rut} onChange={(e) => { setRut(formatRut(e.target.value)) }} label="RUT" />
+                <Input max={90} placeholder="José Pinto Pérez 1037" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
+                <Input max={40} placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" label="Correo electrónico" />
+                <Input max={9} placeholder="942250219" value={phone} onChange={(e) => { setPhone(onlyNumberInput(e.target.value)) }} type="text" label="Teléfono" />
                 <Input value={orgType} onChange={(e) => { setOrgType(e.target.value) }} type="select" options={orgTypes} label="Tipo de organización" />
             </div>
         </FormLayout>

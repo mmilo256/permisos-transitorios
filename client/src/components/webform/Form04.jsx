@@ -3,13 +3,18 @@ import Upload from "../ui/Upload"
 import FormLayout from "./FormLayout"
 import useWebFormStore from "../../stores/useWebFormStore"
 import { useEffect, useState } from "react"
-// import { createApplication } from "../../services/webFormServices"
+import Alert from "../ui/Alert"
+import { createApplication } from "../../services/webFormServices"
 
 const Form04 = () => {
 
     // Función para actualizar los datos de documentos en el estado global
     const formData = useWebFormStore(state => state.formData)
     const setDocsData = useWebFormStore(state => state.setDocsData)
+
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const [showAlert, setShowAlert] = useState(false)
 
     // Estado local para manejar los archivos subidos
     const [files, setFiles] = useState(formData.docsData)
@@ -25,34 +30,52 @@ const Form04 = () => {
     }
 
     useEffect(() => {
-        if (formData.orgData.name &&
-            formData.orgData.rut &&
-            formData.orgData.address &&
-            formData.orgData.email &&
-            formData.orgData.phone &&
-            formData.orgData.orgType &&
-            formData.personData.name &&
-            formData.personData.rut &&
-            formData.personData.address &&
-            formData.personData.email &&
-            formData.personData.phone &&
-            formData.personData.phone2 &&
-            formData.permissionData.name &&
-            formData.permissionData.place &&
-            formData.permissionData.startDate &&
-            formData.permissionData.startTime &&
-            formData.permissionData.endDate &&
-            formData.permissionData.endTime &&
-            formData.permissionData.alcohol &&
-            formData.permissionData.food &&
-            formData.permissionData.description &&
-            formData.permissionData.purpose
+        let valid = true
+        let errorMsg = ""
+
+        // Verifica que todos los campos obligatorios estén llenos
+        if (
+            !formData.orgData.name ||
+            !formData.orgData.rut ||
+            !formData.orgData.address ||
+            !formData.orgData.email ||
+            !formData.orgData.phone ||
+            !formData.orgData.orgType ||
+            !formData.personData.name ||
+            !formData.personData.rut ||
+            !formData.personData.address ||
+            !formData.personData.email ||
+            !formData.personData.phone ||
+            !formData.permissionData.name ||
+            !formData.permissionData.place ||
+            !formData.permissionData.startDate ||
+            !formData.permissionData.startTime ||
+            !formData.permissionData.endDate ||
+            !formData.permissionData.endTime ||
+            !formData.permissionData.alcohol ||
+            !formData.permissionData.food ||
+            !formData.permissionData.description ||
+            !formData.permissionData.purpose
         ) {
-            setIsValid(true)
+            valid = false;
+            errorMsg = "Debe rellenar todos los campos obligatorios";
         } else {
-            setIsValid(false)
+            // Validación de fechas
+            const { startDate, endDate, startTime, endTime } = formData.permissionData;
+
+            const startDateTime = new Date(`${startDate}T${startTime}`);
+            const endDateTime = new Date(`${endDate}T${endTime}`);
+
+            if (startDateTime >= endDateTime) {
+                valid = false;
+                errorMsg = "La fecha de inicio no puede ser posterior a la fecha de término";
+            }
         }
-    }, [formData])
+
+        setIsValid(valid);
+        setErrorMessage(errorMsg);
+    }, [formData]);
+
 
     // Función para manejar la acción del botón "Enviar solicitud"
     const onClickNext = async () => {
@@ -85,18 +108,23 @@ const Form04 = () => {
             // docs: formData.docsData
         }
 
-        console.log(data)
-        alert("Solicitud enviada")
-        // await createApplication(data)
-        // navigate("/solicitud-enviada")
+        if (isValid) {
+            await createApplication(data)
+            navigate("/solicitud-enviada")
+        } else {
+            setShowAlert(true)
+        }
     }
 
     return (
         // Renderiza el layout del formulario con título, botones de navegación y texto del botón "Enviar solicitud"
-        <FormLayout title="4. Antecedentes" onClickPrev={onClickPrev} onClickNext={onClickNext} btnTextNext="Enviar solicitud" isValid={isValid}>
-            {/* Componente de carga de archivos */}
-            <Upload files={files} setFiles={setFiles} label="Subir antecedentes y firma del representante legal" />
-        </FormLayout>
+        <>
+            <Alert variant="warning" text={errorMessage} visible={showAlert} setVisible={setShowAlert} />
+            <FormLayout title="4. Antecedentes" onClickPrev={onClickPrev} onClickNext={onClickNext} btnTextNext="Enviar solicitud">
+                {/* Componente de carga de archivos */}
+                <Upload files={files} setFiles={setFiles} label="Subir antecedentes y firma del representante legal" />
+            </FormLayout>
+        </>
     )
 }
 

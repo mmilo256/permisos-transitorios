@@ -3,6 +3,7 @@ import Input from "../ui/Input"
 import FormLayout from "./FormLayout"
 import useWebFormStore from "../../stores/useWebFormStore"
 import { useState } from "react"
+import { formatRut, onlyNumberInput } from "../../utils/utils"
 
 const Form02 = () => {
 
@@ -47,14 +48,14 @@ const Form02 = () => {
     return (
         // Renderiza el layout del formulario con título y botones para navegación
         <FormLayout title="2. Datos del representante legal" onClickPrev={onClickPrev} onClickNext={onClickNext}>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-5">
                 {/* Renderiza los campos del formulario con valores y manejadores de cambio */}
-                <Input placeholder="Nombre del presidente de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre completo" />
-                <Input placeholder="22.222.222-K" value={rut} onChange={(e) => { setRut(e.target.value) }} label="RUT" />
-                <Input placeholder="José Pinto Pérez 0182" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
-                <Input placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} label="Correo electrónico" />
-                <Input placeholder="+569 32020239" value={phone} onChange={(e) => { setPhone(e.target.value) }} label="Teléfono" />
-                <Input placeholder="+569 32020239" value={phone2} onChange={(e) => { setPhone2(e.target.value) }} label="Teléfono 2 (opcional)" />
+                <Input max={90} placeholder="Nombre del presidente de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre completo" />
+                <Input max={12} placeholder="22.222.222-K" value={rut} onChange={(e) => { setRut(formatRut(e.target.value)) }} label="RUT" />
+                <Input max={90} placeholder="José Pinto Pérez 0182" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
+                <Input max={40} placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} label="Correo electrónico" />
+                <Input max={9} placeholder="932020239" value={phone} onChange={(e) => { setPhone(onlyNumberInput(e.target.value)) }} label="Teléfono" />
+                <Input max={9} placeholder="932020239" value={phone2} onChange={(e) => { setPhone2(onlyNumberInput(e.target.value)) }} label="Teléfono 2 (opcional)" />
             </div>
         </FormLayout>
     )

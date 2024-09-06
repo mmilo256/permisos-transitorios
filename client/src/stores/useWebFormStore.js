@@ -30,9 +30,9 @@ const useWebFormStore = create((set) => ({
             startTime: "",
             endDate: "",
             endTime: "",
-            alcohol: "",
-            food: "",
-            description: "",
+            alcohol: "false",
+            food: "false",
+            description: '',
             purpose: ""
         },
         // Documentos adjuntos
