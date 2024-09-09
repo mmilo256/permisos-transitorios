@@ -29,7 +29,7 @@ const Application = sequelize.define('solicitudes', {
     is_food: DataTypes.BOOLEAN,
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
-    docs: DataTypes.STRING,
+    docs: DataTypes.JSON,
 }, { timestamps: false })
 
 export default Application

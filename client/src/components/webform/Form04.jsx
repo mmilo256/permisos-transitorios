@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import Upload from "../ui/Upload"
-import FormLayout from "./FormLayout"
 import useWebFormStore from "../../stores/useWebFormStore"
 import { useEffect, useState } from "react"
 import Alert from "../ui/Alert"
 import { createApplication } from "../../services/webFormServices"
+import Container from "../ui/Container"
+import Heading from "../ui/Heading"
+import Button from "../ui/Button"
 
 const Form04 = () => {
 
@@ -80,36 +82,39 @@ const Form04 = () => {
     // Función para manejar la acción del botón "Enviar solicitud"
     const onClickNext = async () => {
         // Actualiza el estado global con los archivos subidos
-        setDocsData(files)
+        await setDocsData(files)
         // Muestra un mensaje de éxito
-        const data = {
-            org_name: formData.orgData.name,
-            org_rut: formData.orgData.rut,
-            org_address: formData.orgData.address,
-            org_email: formData.orgData.email,
-            org_phone: formData.orgData.phone,
-            org_type: formData.orgData.orgType,
-            owner_name: formData.personData.name,
-            owner_rut: formData.personData.rut,
-            owner_address: formData.personData.address,
-            owner_email: formData.personData.email,
-            owner_phone: formData.personData.phone,
-            owner_phone2: formData.personData.phone2,
-            activity_name: formData.permissionData.name,
-            place: formData.permissionData.place,
-            start_date: formData.permissionData.startDate,
-            start_time: formData.permissionData.startTime,
-            end_date: formData.permissionData.endDate,
-            end_time: formData.permissionData.endTime,
-            is_alcohol: formData.permissionData.alcohol,
-            is_food: formData.permissionData.food,
-            description: formData.permissionData.description,
-            purpose: formData.permissionData.purpose,
-            // docs: formData.docsData
-        }
+        const data = new FormData()
+        data.append('org_name', formData.orgData.name)
+        data.append('org_rut', formData.orgData.rut)
+        data.append('org_address', formData.orgData.address)
+        data.append('org_email', formData.orgData.email)
+        data.append('org_phone', formData.orgData.phone)
+        data.append('org_type', formData.orgData.orgType)
+        data.append('owner_name', formData.personData.name)
+        data.append('owner_rut', formData.personData.rut)
+        data.append('owner_address', formData.personData.address)
+        data.append('owner_email', formData.personData.email)
+        data.append('owner_phone', formData.personData.phone)
+        data.append('owner_phone2', formData.personData.phone2)
+        data.append('activity_name', formData.permissionData.name)
+        data.append('place', formData.permissionData.place)
+        data.append('start_date', formData.permissionData.startDate)
+        data.append('start_time', formData.permissionData.startTime)
+        data.append('end_date', formData.permissionData.endDate)
+        data.append('end_time', formData.permissionData.endTime)
+        data.append('is_alcohol', formData.permissionData.alcohol)
+        data.append('is_food', formData.permissionData.food)
+        data.append('description', formData.permissionData.description)
+        data.append('purpose', formData.permissionData.purpose)
+        files.forEach(file => {
+            data.append('files', file)
+        })
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } }
 
         if (isValid) {
-            await createApplication(data)
+            await createApplication(data, config)
             navigate("/solicitud-enviada")
         } else {
             setShowAlert(true)
@@ -120,10 +125,25 @@ const Form04 = () => {
         // Renderiza el layout del formulario con título, botones de navegación y texto del botón "Enviar solicitud"
         <>
             <Alert variant="warning" text={errorMessage} visible={showAlert} setVisible={setShowAlert} />
-            <FormLayout title="4. Antecedentes" onClickPrev={onClickPrev} onClickNext={onClickNext} btnTextNext="Enviar solicitud">
-                {/* Componente de carga de archivos */}
-                <Upload files={files} setFiles={setFiles} label="Subir antecedentes y firma del representante legal" />
-            </FormLayout>
+
+            <Container>
+                {/* Título principal del formulario */}
+                <Heading variant="h2">Formulario de Solicitud de Autorización Especial Transitoria</Heading>
+                {/* Título específico para la sección del formulario */}
+                <Heading variant="h3">4. Antecedentes</Heading>
+                {/* Renderiza los campos y componentes hijos del formulario */}
+                <form>
+                    <Upload files={files} setFiles={setFiles} label="Subir antecedentes y firma del representante legal" />
+
+                    {/* Contenedor para los botones de navegación */}
+                    <div className="flex gap-2 justify-end border-t border-t-slate-300 mt-6 pt-6">
+                        {/* Botón para retroceder a la página anterior, si se proporciona la función onClickPrev */}
+                        {onClickPrev && <Button variant="secondary" type="button" onClick={onClickPrev}>Anterior</Button>}
+                        {/* Botón para avanzar al siguiente paso, si se proporciona la función onClickNext */}
+                        {onClickNext && <Button variant="primary" type="button" onClick={onClickNext}>Subir archivos</Button>}
+                    </div>
+                </form>
+            </Container>
         </>
     )
 }

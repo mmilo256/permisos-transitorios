@@ -33,3 +33,26 @@ export const onlyNumberInput = (value) => {
     let cleanValue = value.replace(/[^0-9]/g, "");
     return cleanValue
 }
+
+
+export const formatDate = (date, format) => {
+
+    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+
+    const newDate = new Date(date)
+    const day = newDate.getUTCDate()
+    const month = newDate.getUTCMonth() + 1
+    const monthName = monthNames[month - 1]
+    const year = newDate.getUTCFullYear()
+    let dateString
+    switch (format) {
+        case 1:
+            dateString = `${day} de ${monthName} de ${year}`
+            break;
+
+        default:
+            dateString = `${day}/${month}/${year}`
+            break;
+    }
+    return dateString
+}

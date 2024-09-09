@@ -35,7 +35,7 @@ const Upload = ({ label, files, setFiles }) => {
             {/* Botón que simula el clic en el input de archivo */}
             <Button onClick={handleClick}>Subir archivos</Button>
             {/* Input de archivo oculto */}
-            <input type="file" multiple className="hidden" onChange={handleChange} ref={hiddenFileInput} />
+            <input type="file" multiple className="hidden" name="files" onChange={handleChange} ref={hiddenFileInput} />
             {/* Lista de archivos seleccionados */}
             <ul className="mt-5 flex flex-col gap-2">
                 {/* Mensaje si no hay archivos seleccionados */}

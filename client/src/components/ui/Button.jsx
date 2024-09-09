@@ -6,10 +6,16 @@ const Button = ({ children, variant = "primary", type = "button", href, onClick,
     let buttonStyles;
     switch (variant) {
         case "primary":
-            buttonStyles = `bg-primary hover:bg-primaryHover disabled:bg-blue-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold ${fullWidth && "w-full text-center"}`
+            buttonStyles = `bg-primary hover:bg-primaryHover disabled:bg-blue-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center ${fullWidth && "w-full"}`
             break
         case "secondary":
-            buttonStyles = `bg-white hover:bg-blue-50 border border-primary text-primary py-3 px-5 font-bold ${fullWidth && "w-full text-center"}`
+            buttonStyles = `bg-white hover:bg-blue-50 border border-primary text-primary py-3 px-5 font-bold  text-center ${fullWidth && "w-full"}`
+            break
+        case "approval":
+            buttonStyles = `bg-green-600 hover:bg-green-500 disabled:bg-green-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center ${fullWidth && "w-full"}`
+            break
+        case "reject":
+            buttonStyles = `bg-red-600 hover:bg-red-500 disabled:bg-red-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center ${fullWidth && "w-full"}`
             break
     }
 
@@ -19,7 +25,7 @@ const Button = ({ children, variant = "primary", type = "button", href, onClick,
             ? <NavLink disabled={disabled} to={href} className={`block transition-colors ${buttonStyles}`}>
                 <span className='underline'>{children}</span>
             </NavLink>
-            : <button disabled={disabled} onClick={onClick} type='button' className={`block max-w-fit transition-colors ${buttonStyles}`}>
+            : <button disabled={disabled} onClick={onClick} type={type} className={`block transition-colors ${buttonStyles}`}>
                 <span className='underline'>{children}</span>
             </button>
     )
