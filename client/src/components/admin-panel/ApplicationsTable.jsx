@@ -10,7 +10,7 @@ const ApplicationsTable = () => {
 
     const columns = ["Actividad", "Organización", "Lugar de realización", "Fecha de realización", ""]
 
-    const formattedData = data.map(row => {
+    const formattedData = data && data.map(row => {
         const formattedDate = formatDate(row.start_date, 1)
         return (
             {
@@ -33,7 +33,7 @@ const ApplicationsTable = () => {
     }, [])
 
     return (
-        data && <Table columns={columns} data={formattedData} />
+        data ? <Table columns={columns} data={formattedData} /> : <p>No se pudo conectar a la base de datos</p>
     )
 }
 

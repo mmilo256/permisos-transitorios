@@ -5,9 +5,12 @@ import Form03 from "./Form03"
 import Form04 from "./Form04"
 import FormGuide from "./FormGuide"
 import FormCompleted from "./FormCompleted"
+import Navbar from "../ui/Navbar"
 const WebForm = () => {
     return (
         <div>
+            {/* Componente de navegación principal */}
+            <Navbar />
             <Routes>
                 <Route path="/" element={<FormGuide />} />
                 <Route path="datos-organizacion" element={<Form01 />} />

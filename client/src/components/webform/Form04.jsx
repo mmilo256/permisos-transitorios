@@ -140,7 +140,7 @@ const Form04 = () => {
                         {/* Botón para retroceder a la página anterior, si se proporciona la función onClickPrev */}
                         {onClickPrev && <Button variant="secondary" type="button" onClick={onClickPrev}>Anterior</Button>}
                         {/* Botón para avanzar al siguiente paso, si se proporciona la función onClickNext */}
-                        {onClickNext && <Button variant="primary" type="button" onClick={onClickNext}>Subir archivos</Button>}
+                        {onClickNext && <Button variant="primary" type="button" onClick={onClickNext}>Enviar solicitud</Button>}
                     </div>
                 </form>
             </Container>
