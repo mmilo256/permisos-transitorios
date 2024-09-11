@@ -1,3 +1,4 @@
+DROP TABLE solicitudes;
 CREATE TABLE solicitudes(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	org_name VARCHAR(100),
@@ -51,4 +52,34 @@ CREATE TABLE IF NOT EXISTS solicitudes (
     description TEXT,
     purpose TEXT,
     docs JSON                              -- JSON en SQLite se puede almacenar como TEXT
+);
+
+-- PostgreSQL
+DROP TABLE IF EXISTS solicitudes;
+
+CREATE TABLE solicitudes (
+    id SERIAL PRIMARY KEY,
+    org_name VARCHAR(100),
+    org_rut VARCHAR(15),
+    org_address VARCHAR(100),
+    org_email VARCHAR(50),
+    org_phone VARCHAR(15),
+    org_type VARCHAR(100),
+    owner_name VARCHAR(100),
+    owner_rut VARCHAR(15),
+    owner_address VARCHAR(100),
+    owner_email VARCHAR(50),
+    owner_phone VARCHAR(15),
+    owner_phone2 VARCHAR(15),
+    activity_name VARCHAR(100),
+    place VARCHAR(100),
+    start_date DATE,
+    start_time TIME,
+    end_date DATE,
+    end_time TIME,
+    is_alcohol BOOLEAN,
+    is_food BOOLEAN,
+    description TEXT,
+    purpose TEXT,
+    docs JSON
 );
