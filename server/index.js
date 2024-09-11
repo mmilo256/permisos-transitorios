@@ -42,6 +42,8 @@ app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), applicationRouter)
 
-app.listen(10000, () => {
+const port = process.env.PORT || 4000
+
+app.listen(port, () => {
     console.log("Running...")
 })

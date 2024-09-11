@@ -3,7 +3,7 @@ import { API_URL } from '../constants/constants.js';
 
 export async function getAllApplications() {
     try {
-        const response = await axios.get(`${API_URL}/solicitudes`);
+        const response = await axios.get(`${API_URL}/api/solicitudes`);
         const data = await response.data
         return data
     } catch (error) {
@@ -13,7 +13,7 @@ export async function getAllApplications() {
 
 export async function getApplicationById(id) {
     try {
-        const response = await axios.get(`${API_URL}/solicitudes/${id}`);
+        const response = await axios.get(`${API_URL}/api/solicitudes/${id}`);
         const data = await response.data
         return data
     } catch (error) {
@@ -23,7 +23,7 @@ export async function getApplicationById(id) {
 
 export const createApplication = async (data, config) => {
     try {
-        await axios.post(`${API_URL}/solicitudes`, data, config)
+        await axios.post(`${API_URL}/api/solicitudes`, data, config)
     } catch (error) {
         console.log(error)
     }
