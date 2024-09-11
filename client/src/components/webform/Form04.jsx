@@ -114,8 +114,12 @@ const Form04 = () => {
         const config = { headers: { 'Content-Type': 'multipart/form-data' } }
 
         if (isValid) {
-            await createApplication(data, config)
-            navigate("/solicitud-enviada")
+            try {
+                await createApplication(data, config)
+                navigate("/solicitud-enviada")
+            } catch (error) {
+                console.log(error)
+            }
         } else {
             setShowAlert(true)
         }

@@ -23,7 +23,7 @@ export async function getApplicationById(id) {
 
 export const createApplication = async (data, config) => {
     try {
-        axios.post(`${API_URL}/solicitudes`, data, config)
+        await axios.post(`${API_URL}/solicitudes`, data, config)
     } catch (error) {
         console.log(error)
     }

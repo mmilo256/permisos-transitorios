@@ -42,6 +42,6 @@ app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), applicationRouter)
 
-app.listen(3000, () => {
+app.listen(10000, () => {
     console.log("Running...")
 })
