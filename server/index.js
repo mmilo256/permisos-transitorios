@@ -5,6 +5,7 @@ import cors from 'cors'
 import applicationRouter from './modules/applications/applicationRoutes.js'
 import multer from 'multer'
 const app = e()
+app.use(cors())
 
 // Configura el almacenamiento de Multer para renombrar archivos
 const storage = multer.diskStorage({
@@ -24,7 +25,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.use(cors())
 
 // Obtén la ruta del directorio actual
 const __filename = fileURLToPath(import.meta.url);
