@@ -22,5 +22,33 @@ CREATE TABLE solicitudes(
 	is_food BOOLEAN,
 	description TEXT,
 	purpose TEXT,
-	docs TEXT
+	docs JSON
+);
+
+-- sqlite
+CREATE TABLE IF NOT EXISTS solicitudes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,   -- Usa INTEGER PRIMARY KEY AUTOINCREMENT para auto incremento
+    org_name TEXT,                         -- TEXT se usa en lugar de VARCHAR en SQLite
+    org_rut TEXT,
+    org_address TEXT,    
+    org_email TEXT,
+    org_phone TEXT,
+    org_type TEXT,
+    owner_name TEXT,
+    owner_rut TEXT,
+    owner_address TEXT,    
+    owner_email TEXT,
+    owner_phone TEXT,
+    owner_phone2 TEXT,
+    activity_name TEXT,
+    place TEXT,
+    start_date TEXT,                       -- Usar TEXT para almacenar fechas como VARCHAR
+    start_time TEXT,                       -- Usar TEXT para almacenar horas como VARCHAR
+    end_date TEXT,                         -- Usar TEXT para almacenar fechas como VARCHAR
+    end_time TEXT,                         -- Usar TEXT para almacenar horas como VARCHAR
+    is_alcohol INTEGER,                    -- BOOLEAN en SQLite se representa como INTEGER (0 o 1)
+    is_food INTEGER,                       -- BOOLEAN en SQLite se representa como INTEGER (0 o 1)
+    description TEXT,
+    purpose TEXT,
+    docs JSON                              -- JSON en SQLite se puede almacenar como TEXT
 );
