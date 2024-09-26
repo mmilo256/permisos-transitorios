@@ -1,5 +1,7 @@
 import { sequelize } from '../../config/db.js'
 import { DataTypes } from 'sequelize'
+import Permission from '../permissions/permissionsModel.js'
+import President from '../presidents/presidentsModel.js'
 
 const Organization = sequelize.define('organizations', {
     id: {
@@ -15,5 +17,11 @@ const Organization = sequelize.define('organizations', {
     org_type: DataTypes.STRING,
     docs: DataTypes.JSON,
 }, { timestamps: false })
+
+
+Organization.hasOne(President);
+Organization.hasMany(Permission);
+Permission.belongsTo(Organization)
+President.belongsTo(Organization)
 
 export default Organization

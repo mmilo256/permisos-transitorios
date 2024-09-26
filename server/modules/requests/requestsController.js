@@ -19,6 +19,16 @@ export const getRequestById = async (req, res) => {
     }
 }
 
+export const updateRequest = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updatedRequest = await Request.update({ ...req.body }, { where: { id } })
+        res.status(200).json(updatedRequest)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const createRequest = async (req, res) => {
     try {
         const docs = req.files.map(file => (

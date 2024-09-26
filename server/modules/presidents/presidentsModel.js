@@ -1,5 +1,6 @@
 import { sequelize } from '../../config/db.js'
 import { DataTypes } from 'sequelize'
+import Organization from '../organizations/organizationsModel.js';
 
 const President = sequelize.define('presidents', {
     id: {

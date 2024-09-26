@@ -1,10 +1,63 @@
-GET http://localhost:3000/api/solicitudes/4
+GET http://localhost:4000/api/solicitudes/1
 
 ###
 
-POST http://localhost:3000/api/solicitudes
+POST http://localhost:4000/api/solicitudes
 Content-Type: application/json
 
 {
     "org_name": "Kamehameh"
+}
+
+###
+
+PATCH http://localhost:4000/api/solicitudes/1
+Content-Type: application/json
+
+{
+    "status": "rechazada"
+}
+
+###
+
+POST http://localhost:4000/api/organizaciones
+Content-Type: application/json
+
+{
+    "org_name": "Junta de vecinos de Chonchi",
+    "org_rut": "77.722.230-2",
+    "org_address": "Calle 123",
+    "org_email": "correo@gmail.com",
+    "org_phone": "+569 4873948",
+    "org_type": "Junta de vecinos"
+}
+###
+POST http://localhost:4000/api/presidentes
+Content-Type: application/json
+
+{
+    "name": "Emilio Soto",
+    "rut": "19.722.280-8",
+    "address": "Sargento Candelaria 3821",
+    "email": "correo@gmail.com",
+    "phone": "+569 84932093",
+    "potito": "pitituux",
+    "organizationId": 2
+}
+###
+POST http://localhost:4000/api/permisos
+Content-Type: application/json
+
+{
+    "activity_name": "Bingo bailable",
+    "place": "Gimnasio Municipal",
+    "start_date": "2024-02-02",
+    "start_time": "13:00",
+    "end_date": "2024-02-03",
+    "end_time": "14:00",
+    "is_alcohol": 1,
+    "is_food": 0,
+    "description": "Breve descripción de la actividad",
+    "purpose": "Destino de los fondos recaudados",
+    "organizationId": 2
 }

@@ -1,5 +1,6 @@
 import { sequelize } from '../../config/db.js'
 import { DataTypes } from 'sequelize'
+import Organization from '../organizations/organizationsModel.js';
 
 const Permission = sequelize.define('permissions', {
     id: {
@@ -18,5 +19,6 @@ const Permission = sequelize.define('permissions', {
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
 }, { timestamps: false })
+
 
 export default Permission

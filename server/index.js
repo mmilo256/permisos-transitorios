@@ -2,7 +2,10 @@ import e from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import cors from 'cors'
-import applicationRouter from './modules/requests/requestsRoutes.js'
+import requestRouter from './modules/requests/requestsRoutes.js'
+import organizationRouter from './modules/organizations/organizationsRoutes.js'
+import presidentRouter from './modules/presidents/presidentsRoutes.js'
+import permissionRouter from './modules/permissions/permissionsRoutes.js'
 import multer from 'multer'
 import User from './modules/users/usersModel.js';
 import Organization from './modules/organizations/organizationsModel.js';
@@ -52,7 +55,10 @@ app.disable('x-powered-by')
 // Muestra como JSON las peticiones POST con el Content Type = application/json
 app.use(e.json())
 
-app.use("/api/solicitudes", upload.array('files', 12), applicationRouter)
+app.use("/api/solicitudes", upload.array('files', 12), requestRouter)
+app.use("/api/organizaciones", upload.array('files', 12), organizationRouter)
+app.use("/api/presidentes", presidentRouter)
+app.use("/api/permisos", permissionRouter)
 
 const port = process.env.PORT || 4000
 

@@ -30,7 +30,10 @@ const Request = sequelize.define('requests', {
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
     docs: DataTypes.JSON,
-    status: DataTypes.STRING
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: "pendiente"
+    }
 }, { timestamps: false })
 
 export default Request
