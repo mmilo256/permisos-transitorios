@@ -1,7 +1,7 @@
 import { sequelize } from '../../config/db.js'
 import { DataTypes } from 'sequelize'
 
-const Application = sequelize.define('solicitudes', {
+const Request = sequelize.define('requests', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -30,6 +30,7 @@ const Application = sequelize.define('solicitudes', {
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
     docs: DataTypes.JSON,
+    status: DataTypes.STRING
 }, { timestamps: false })
 
-export default Application
+export default Request

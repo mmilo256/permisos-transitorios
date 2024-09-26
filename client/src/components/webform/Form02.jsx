@@ -3,7 +3,8 @@ import Input from "../ui/Input"
 import FormLayout from "./FormLayout"
 import useWebFormStore from "../../stores/useWebFormStore"
 import { useState } from "react"
-import { formatRut, onlyNumberInput } from "../../utils/utils"
+import { formatRut, onlyNumberInput, validateEmail } from "../../utils/utils"
+import Alert from "../ui/Alert"
 
 const Form02 = () => {
 
@@ -19,6 +20,8 @@ const Form02 = () => {
     const [phone, setPhone] = useState(formData.personData.phone)
     const [phone2, setPhone2] = useState(formData.personData.phone2)
 
+    const [validationAlert, setValidationAlert] = useState(false)
+
     // Hook para la navegación programática
     const navigate = useNavigate()
 
@@ -29,35 +32,41 @@ const Form02 = () => {
 
     // Función para navegar a la página siguiente y actualizar los datos del representante en el store
     const onClickNext = () => {
-        // Navega a la página de detalles del permiso
-        navigate("/detalles-permiso")
-
-        // Crea un objeto con los datos del formulario
-        const data = {
-            name,
-            rut,
-            address,
-            email,
-            phone,
-            phone2
+        if (validateEmail(email)) {
+            // Crea un objeto con los datos del formulario
+            const data = {
+                name,
+                rut,
+                address,
+                email,
+                phone,
+                phone2
+            }
+            // Actualiza el estado global con los datos del representante
+            setPersonData(data)
+            // Navega a la página de detalles del permiso
+            navigate("/detalles-permiso")
+        } else {
+            setValidationAlert(true)
         }
-        // Actualiza el estado global con los datos del representante
-        setPersonData(data)
     }
 
     return (
         // Renderiza el layout del formulario con título y botones para navegación
-        <FormLayout title="2. Datos del representante legal" onClickPrev={onClickPrev} onClickNext={onClickNext}>
-            <div className="grid md:grid-cols-2 gap-5">
-                {/* Renderiza los campos del formulario con valores y manejadores de cambio */}
-                <Input max={90} placeholder="Nombre del presidente de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre completo" />
-                <Input max={12} placeholder="22.222.222-K" value={rut} onChange={(e) => { setRut(formatRut(e.target.value)) }} label="RUT" />
-                <Input max={90} placeholder="José Pinto Pérez 0182" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
-                <Input max={40} placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} label="Correo electrónico" />
-                <Input max={9} placeholder="932020239" value={phone} onChange={(e) => { setPhone(onlyNumberInput(e.target.value)) }} label="Teléfono" />
-                <Input max={9} placeholder="932020239" value={phone2} onChange={(e) => { setPhone2(onlyNumberInput(e.target.value)) }} label="Teléfono 2 (opcional)" />
-            </div>
-        </FormLayout>
+        <>
+            <FormLayout title="2. Datos del representante legal" onClickPrev={onClickPrev} onClickNext={onClickNext}>
+                <div className="grid md:grid-cols-2 gap-5">
+                    {/* Renderiza los campos del formulario con valores y manejadores de cambio */}
+                    <Input max={90} placeholder="Nombre del presidente de la organización" value={name} onChange={(e) => { setName(e.target.value) }} label="Nombre completo" />
+                    <Input max={12} placeholder="22.222.222-K" value={rut} onChange={(e) => { setRut(formatRut(e.target.value)) }} label="RUT" />
+                    <Input max={90} placeholder="José Pinto Pérez 0182" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
+                    <Input max={40} placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} label="Correo electrónico" />
+                    <Input max={9} placeholder="932020239" value={phone} onChange={(e) => { setPhone(onlyNumberInput(e.target.value)) }} label="Teléfono" />
+                    <Input max={9} placeholder="932020239" value={phone2} onChange={(e) => { setPhone2(onlyNumberInput(e.target.value)) }} label="Teléfono 2 (opcional)" />
+                </div>
+            </FormLayout>
+            <Alert variant="warning" text="El correo electrónico es inválido" visible={validationAlert} setVisible={setValidationAlert} />
+        </>
     )
 }
 

@@ -2,10 +2,22 @@ import e from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import cors from 'cors'
-import applicationRouter from './modules/applications/applicationRoutes.js'
+import applicationRouter from './modules/requests/requestsRoutes.js'
 import multer from 'multer'
+import User from './modules/users/usersModel.js';
+import Organization from './modules/organizations/organizationsModel.js';
+import President from './modules/presidents/presidentsModel.js';
+import Permission from './modules/permissions/permissionsModel.js';
+import Request from './modules/requests/requestsModel.js';
 const app = e()
 app.use(cors())
+
+// Creación de tablas al inicializar la aplicación por primera vez
+await User.sync()
+await Organization.sync()
+await President.sync()
+await Permission.sync()
+await Request.sync()
 
 // Configura el almacenamiento de Multer para renombrar archivos
 const storage = multer.diskStorage({

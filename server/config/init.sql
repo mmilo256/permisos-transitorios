@@ -27,7 +27,7 @@ CREATE TABLE solicitudes(
 );
 
 -- sqlite
-CREATE TABLE IF NOT EXISTS solicitudes (
+CREATE TABLE IF NOT EXISTS requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,   -- Usa INTEGER PRIMARY KEY AUTOINCREMENT para auto incremento
     org_name TEXT,                         -- TEXT se usa en lugar de VARCHAR en SQLite
     org_rut TEXT,
@@ -51,7 +51,49 @@ CREATE TABLE IF NOT EXISTS solicitudes (
     is_food INTEGER,                       -- BOOLEAN en SQLite se representa como INTEGER (0 o 1)
     description TEXT,
     purpose TEXT,
-    docs JSON                              -- JSON en SQLite se puede almacenar como TEXT
+    docs JSON,
+    status TEXT                              -- JSON en SQLite se puede almacenar como TEXT
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    password TEXT
+);
+
+CREATE TABLE IF NOT EXISTS organizations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    rut TEXT,
+    address TEXT,
+    email TEXT,
+    phone TEXT,
+    type TEXT,
+    docs JSON
+);
+
+CREATE TABLE IF NOT EXISTS presidents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    rut TEXT,
+    address TEXT,
+    email TEXT,
+    phone TEXT,
+    phone2 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS permissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    start_date TEXT,
+    start_time TEXT,
+    end_date TEXT,
+    end_time TEXT,
+    activity_name TEXT,
+    place TEXT,
+    is_alcohol INTEGER,
+    is_food INTEGER,
+    description TEXT,
+    purpose TEXT
 );
 
 -- PostgreSQL
