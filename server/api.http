@@ -15,8 +15,13 @@ PATCH http://localhost:4000/api/solicitudes/1
 Content-Type: application/json
 
 {
-    "status": "rechazada"
+    "status": "aprobada"
 }
+
+###
+
+GET http://localhost:4000/api/organizaciones
+
 
 ###
 
@@ -32,6 +37,11 @@ Content-Type: application/json
     "org_type": "Junta de vecinos"
 }
 ###
+
+PATCH http://localhost:4000/api/organizaciones/7/delete
+Content-Type: application/json
+
+###
 POST http://localhost:4000/api/presidentes
 Content-Type: application/json
 
@@ -42,14 +52,19 @@ Content-Type: application/json
     "email": "correo@gmail.com",
     "phone": "+569 84932093",
     "potito": "pitituux",
-    "organizationId": 2
+    "organizationId": 1
 }
+
+###
+GET http://localhost:4000/api/permisos?organizationId=4
+###
+GET http://localhost:4000/api/permisos/1
 ###
 POST http://localhost:4000/api/permisos
 Content-Type: application/json
 
 {
-    "activity_name": "Bingo bailable",
+    "activity_name": "Bingo bailable 666",
     "place": "Gimnasio Municipal",
     "start_date": "2024-02-02",
     "start_time": "13:00",
@@ -59,5 +74,5 @@ Content-Type: application/json
     "is_food": 0,
     "description": "Breve descripción de la actividad",
     "purpose": "Destino de los fondos recaudados",
-    "organizationId": 2
+    "organizationId": 5
 }

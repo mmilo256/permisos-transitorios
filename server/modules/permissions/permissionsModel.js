@@ -18,6 +18,10 @@ const Permission = sequelize.define('permissions', {
     is_food: DataTypes.BOOLEAN,
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
 }, { timestamps: false })
 
 

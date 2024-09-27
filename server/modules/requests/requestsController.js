@@ -22,8 +22,9 @@ export const getRequestById = async (req, res) => {
 export const updateRequest = async (req, res) => {
     try {
         const { id } = req.params
-        const updatedRequest = await Request.update({ ...req.body }, { where: { id } })
-        res.status(200).json(updatedRequest)
+        const { status } = req.body
+        await Request.update({ status }, { where: { id } })
+        res.status(200).json({ msg: `Estado cambiado a ${status}` })
     } catch (error) {
         console.log(error)
     }

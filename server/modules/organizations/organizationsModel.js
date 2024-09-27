@@ -16,6 +16,10 @@ const Organization = sequelize.define('organizations', {
     org_phone: DataTypes.STRING,
     org_type: DataTypes.STRING,
     docs: DataTypes.JSON,
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
 }, { timestamps: false })
 
 

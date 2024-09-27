@@ -14,6 +14,10 @@ const President = sequelize.define('presidents', {
     email: DataTypes.STRING,
     phone: DataTypes.STRING,
     phone2: DataTypes.STRING,
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
 }, { timestamps: false })
 
 export default President

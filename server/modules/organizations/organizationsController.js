@@ -1,11 +1,27 @@
 import Organization from './organizationsModel.js'
 import President from '../presidents/presidentsModel.js'
-import Permission from '../permissions/permissionsModel.js'
 
 export const getAllOrganizations = async (req, res) => {
     try {
-        const organizations = await Organization.findAll({ include: { model: President, attributes: ["name"] } })
-        res.status(200).json(organizations)
+        const page = req.query.page || 1
+        const limit = req.query.limit || 10
+        const offset = (page - 1) * limit
+        // Obtener las organizaciones con paginación
+        const { count, rows } = await Organization.findAndCountAll({
+            limit,
+            offset,
+            attributes: ["id", "org_rut", "org_name", "org_type"],
+            include: { model: President, attributes: ["name"] },
+            where: { active: true }
+        });
+        // Calcular el total de páginas
+        const totalPages = Math.ceil(count / limit);
+        res.status(200).json({
+            totalItems: count,
+            totalPages: totalPages,
+            currentPage: page,
+            organizations: rows,
+        })
     } catch (error) {
         console.log(error)
     }
@@ -16,9 +32,29 @@ export const getOrganizationById = async (req, res) => {
         const { id } = req.params
         const organization = await Organization.findOne({
             where: { id },
-            include: [President, Permission]
+            include: [President]
         })
         res.status(200).json(organization)
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteOrganization = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updates = { active: false }
+        await Organization.update(updates, { where: { id } })
+        res.status(203).json({ msg: "Organización eliminada satisfactoriamente" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const updateOrganization = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updates = { ...req.body }
+        await Organization.update(updates, { where: { id } })
+        res.status(200).json(updates)
     } catch (error) {
         console.log(error)
     }
