@@ -24,6 +24,8 @@ const ApplicationDetail = () => {
         getApplication()
     }, [id])
 
+
+
     return (
         Object.keys(data).length <= 0 ? <ApplicationDetailSkeleton /> : <>
             <div className="mt-5">

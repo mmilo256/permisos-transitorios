@@ -4,13 +4,13 @@ const Table = ({ columns, data }) => {
             <table className="border w-full">
                 <thead className="bg-primary text-white">
                     <tr>
-                        {columns.map((col, index) => (
+                        {columns && columns.map((col, index) => (
                             <th className="border text-left p-2" key={index}>{col}</th>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, index) => (
+                    {data && data.map((row, index) => (
                         <tr key={index}>
                             {Object.values(row).map((cell, index) => (
                                 <td className="border p-2 bg-white" key={index}>{cell}</td>

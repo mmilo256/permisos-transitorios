@@ -33,6 +33,10 @@ const Request = sequelize.define('requests', {
     status: {
         type: DataTypes.STRING,
         defaultValue: "pendiente"
+    },
+    request_date: {
+        type: DataTypes.DATE,
+        defaultValue: Date.now()
     }
 }, { timestamps: false })
 

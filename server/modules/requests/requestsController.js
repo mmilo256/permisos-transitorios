@@ -2,8 +2,28 @@ import Request from "./requestsModel.js"
 
 export const getAllRequests = async (req, res) => {
     try {
-        const requests = await Request.findAll({ attributes: ["id", "org_name", "activity_name", "place", "start_date"] })
-        res.status(200).json(requests)
+        const page = req.query.page || 1
+        const limit = req.query.limit || 10
+        const offset = (page - 1) * limit
+        const filters = req.query.filters
+
+        const whereClause = filters ? { status: filters } : {}
+        // Obtener los permisos con paginación
+        const { count, rows } = await Request.findAndCountAll({
+            limit,
+            offset,
+            where: whereClause,
+            attributes: ["id", "place", "org_name", "start_date", "activity_name", "status"],
+        });
+        // Calcular el total de páginas
+        const totalPages = Math.ceil(count / limit);
+        res.status(200).json({
+            totalItems: count,
+            totalPages: totalPages,
+            currentPage: page,
+            filters,
+            requests: rows,
+        })
     } catch (error) {
         console.log(error)
     }

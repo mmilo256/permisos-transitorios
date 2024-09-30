@@ -25,6 +25,17 @@ export const getAllPermissions = async (req, res) => {
     }
 }
 
+export const updatePermission = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updates = { ...req.body }
+        await Permission.update(updates, { where: { id } })
+        res.status(200).json(updates)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const getPermissionById = async (req, res) => {
     try {
         const { id } = req.params

@@ -1,6 +1,11 @@
 import Container from "./Container"
 import { NavLink } from 'react-router-dom'
 
+const navigation = [
+    { label: "Inicio", to: "/admin" },
+    { label: "Solicitudes", to: "solicitudes" }
+]
+
 const NavbarAdmin = () => {
     return (
         <header className="py-2 shadow bg-white">
@@ -12,13 +17,14 @@ const NavbarAdmin = () => {
             <nav className="border-t mt-2 pt-2">
                 <Container>
                     <ul className="flex gap-2">
-                        <NavLink
-                            to="/admin"
-                            end
-                            className={({ isActive }) => `px-4 py-2 hover:bg-slate-200 rounded-full ${isActive ? 'bg-slate-200' : ''}`}
-                        >Inicio</NavLink>
-                        <NavLink to="solicitudes" className={({ isActive }) => `px-4 py-2 hover:bg-slate-200 rounded-full ${isActive ? 'bg-slate-300' : ''}`}>Solicitudes</NavLink>
-                        <NavLink to="organizaciones" className={({ isActive }) => `px-4 py-2 hover:bg-slate-200 rounded-full ${isActive ? 'bg-slate-300' : ''}`}>Organizaciones</NavLink>
+                        {navigation.map((item, index) => (
+                            <NavLink
+                                key={index}
+                                to={item.to}
+                                end
+                                className={({ isActive }) => `px-4 py-2 hover:bg-slate-200 rounded-full ${isActive ? 'bg-slate-200' : ''}`}
+                            >{item.label}</NavLink>
+                        ))}
                     </ul>
                 </Container>
             </nav>

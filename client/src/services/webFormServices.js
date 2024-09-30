@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { API_URL } from '../constants/constants.js';
 
-export async function getAllApplications() {
+export async function getAllApplications(page = 1) {
     try {
-        const response = await axios.get(`${API_URL}/api/solicitudes`);
+        const response = await axios.get(`${API_URL}/api/solicitudes?limit=1&page=${page}`);
         const data = await response.data
         return data
     } catch (error) {

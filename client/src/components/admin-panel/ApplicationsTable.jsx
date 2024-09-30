@@ -3,21 +3,24 @@ import { getAllApplications } from "../../services/webFormServices"
 import Table from "../ui/Table"
 import { formatDate } from "../../utils/utils"
 import { NavLink } from 'react-router-dom'
+import Pagination from "../ui/Pagination"
 
 const ApplicationsTable = () => {
 
     const [data, setData] = useState([])
+    const [currentPage, setCurrentPage] = useState(data.currentPage || 1)
 
-    const columns = ["Actividad", "Organización", "Lugar de realización", "Fecha de realización", ""]
+    const columns = ["Organización", "Actividad", "Lugar de realización", "Fecha de solicitud", "Estado", ""]
 
-    const formattedData = data && data.map(row => {
+    const formattedData = data.requests && data.requests.map(row => {
         const formattedDate = formatDate(row.start_date, 1)
         return (
             {
-                event: row.activity_name,
                 name: row.org_name,
+                event: row.activity_name,
                 place: row.place,
-                president: formattedDate,
+                date: formattedDate,
+                status: row.status,
                 actions: <NavLink to={String(row.id)} className="text-blue-500" >Ver solicitud</NavLink>
             }
         )
@@ -26,14 +29,19 @@ const ApplicationsTable = () => {
 
     useEffect(() => {
         const renderApplications = async () => {
-            const res = await getAllApplications()
+            const res = await getAllApplications(currentPage)
             setData(res)
         }
         renderApplications()
-    }, [])
+    }, [currentPage])
 
     return (
-        data ? <Table columns={columns} data={formattedData} /> : <p>No se pudo conectar a la base de datos</p>
+        data
+            ? <>
+                <Table columns={columns} data={formattedData} />
+                <Pagination totalPages={data.totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            </>
+            : <p>No se pudo conectar a la base de datos</p>
     )
 }
 

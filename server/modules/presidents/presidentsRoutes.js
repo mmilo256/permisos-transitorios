@@ -1,10 +1,9 @@
 import e from 'express'
-import { createPresident, getAllPresidents, getPresidentById } from './presidentsController.js'
+import { createPresident, getPresidentByOrganization } from './presidentsController.js'
 
 const router = e.Router()
 
-router.get("/", getAllPresidents)
-router.get("/:id", getPresidentById)
+router.get("/", getPresidentByOrganization)
 router.post("/", createPresident)
 
 export default router
