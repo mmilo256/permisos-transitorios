@@ -1,18 +1,36 @@
 import Organization from './organizationsModel.js'
 import President from '../presidents/presidentsModel.js'
+import { Op, Sequelize } from 'sequelize'
 
 export const getAllOrganizations = async (req, res) => {
     try {
         const page = req.query.page || 1
         const limit = req.query.limit || 10
         const offset = (page - 1) * limit
+        const filters = req.query.filters
+        const search = req.query.search
+        const whereClause = filters ? { org_type: filters } : {}
+        const searchClause = search ? {
+            [Op.or]: [
+                {
+                    org_name: {
+                        [Sequelize.Op.like]: `%${search}%`
+                    }
+                },
+                {
+                    org_rut: {
+                        [Sequelize.Op.like]: `%${search}%`
+                    }
+                }
+            ]
+        } : {}
         // Obtener las organizaciones con paginación
         const { count, rows } = await Organization.findAndCountAll({
             limit,
             offset,
+            where: { active: true, ...whereClause, ...searchClause },
             attributes: ["id", "org_rut", "org_name", "org_type"],
             include: { model: President, attributes: ["name"] },
-            where: { active: true }
         });
         // Calcular el total de páginas
         const totalPages = Math.ceil(count / limit);

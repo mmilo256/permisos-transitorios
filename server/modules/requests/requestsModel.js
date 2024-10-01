@@ -38,6 +38,6 @@ const Request = sequelize.define('requests', {
         type: DataTypes.DATE,
         defaultValue: Date.now()
     }
-}, { timestamps: false })
+}, { updatedAt: false })
 
 export default Request

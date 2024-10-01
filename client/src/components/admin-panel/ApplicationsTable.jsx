@@ -13,7 +13,7 @@ const ApplicationsTable = () => {
     const columns = ["Organización", "Actividad", "Lugar de realización", "Fecha de solicitud", "Estado", ""]
 
     const formattedData = data.requests && data.requests.map(row => {
-        const formattedDate = formatDate(row.start_date, 1)
+        const formattedDate = formatDate(row.createdAt, 3)
         return (
             {
                 name: row.org_name,
@@ -25,7 +25,6 @@ const ApplicationsTable = () => {
             }
         )
     })
-
 
     useEffect(() => {
         const renderApplications = async () => {

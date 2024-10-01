@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/api/organizaciones/4
+GET http://localhost:4000/api/organizaciones
 
 
 ###
@@ -34,7 +34,7 @@ Content-Type: application/json
     "org_address": "Calle 123",
     "org_email": "correo@gmail.com",
     "org_phone": "+569 4873948",
-    "org_type": "Junta de vecinos"
+    "org_type": "Junta de Vecinos"
 }
 ###
 
@@ -52,13 +52,13 @@ POST http://localhost:4000/api/presidentes
 Content-Type: application/json
 
 {
-    "name": "Emilio Soto",
+    "name": "Emilio Soto B",
     "rut": "19.722.280-8",
     "address": "Sargento Candelaria 3821",
     "email": "correo@gmail.com",
     "phone": "+569 84932093",
     "potito": "pitituux",
-    "organizationId": 15
+    "organizationId": 2
 }
 
 ###

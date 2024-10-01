@@ -12,8 +12,9 @@ export const getAllRequests = async (req, res) => {
         const { count, rows } = await Request.findAndCountAll({
             limit,
             offset,
+            order: [['createdAt', 'DESC']],
             where: whereClause,
-            attributes: ["id", "place", "org_name", "start_date", "activity_name", "status"],
+            attributes: ["id", "place", "org_name", "createdAt", "activity_name", "status"],
         });
         // Calcular el total de páginas
         const totalPages = Math.ceil(count / limit);
