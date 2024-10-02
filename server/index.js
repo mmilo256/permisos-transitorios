@@ -56,7 +56,7 @@ app.disable('x-powered-by')
 app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), requestRouter)
-app.use("/api/organizaciones", upload.array('files', 12), organizationRouter)
+app.use("/api/organizaciones", organizationRouter)
 app.use("/api/presidentes", presidentRouter)
 app.use("/api/permisos", permissionRouter)
 

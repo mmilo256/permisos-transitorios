@@ -1,6 +1,7 @@
 import Organization from './organizationsModel.js'
 import President from '../presidents/presidentsModel.js'
 import { Op, Sequelize } from 'sequelize'
+import { sequelize } from '../../config/db.js'
 
 export const getAllOrganizations = async (req, res) => {
     try {
@@ -80,6 +81,43 @@ export const updateOrganization = async (req, res) => {
 
 export const createOrganization = async (req, res) => {
     try {
+        const { org_name, org_rut, org_address, org_email, org_phone, org_type, name, rut, address, email, phone, phone2 } = req.body
+        const orgExists = await Organization.findOne({ where: { org_rut } })
+        if (orgExists) {
+            return res.json({ status: "error", message: "La organización ya existe" })
+        }
+        const organizationData = {
+            org_name,
+            org_rut,
+            org_address,
+            org_email,
+            org_phone,
+            org_type
+        };
+        const presidentData = {
+            name,
+            rut,
+            address,
+            email,
+            phone,
+            phone2
+        }
+        const result = await sequelize.transaction(async (t) => {
+            const newOrganization = await Organization.create(organizationData, { transaction: t })
+            const newPresident = await President.create({ ...presidentData, organizationId: newOrganization.id }, { transaction: t })
+            res.status(201).json({
+                status: "success",
+                message: "La organización se creo exitosamente",
+                data: { org: newOrganization, president: newPresident }
+            })
+        })
+    } catch (error) {
+        res.json({ status: "error", message: "No se pudo crear la organización", error })
+    }
+}
+
+/* export const createOrganization = async (req, res) => {
+    try {
         let docs
         if (req.files) {
             docs = req.files.map(file => (
@@ -92,4 +130,4 @@ export const createOrganization = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-}
+} */

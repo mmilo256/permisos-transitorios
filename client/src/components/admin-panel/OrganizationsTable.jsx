@@ -4,6 +4,7 @@ import { getAllOrganizations } from "../../services/organizationServices"
 import Pagination from "../ui/Pagination"
 import Search from "../ui/Search"
 import Tabs from "./Tabs"
+import { NavLink } from "react-router-dom"
 
 const options = [
     {
@@ -28,7 +29,7 @@ const OrganizationsTable = () => {
     const [data, setData] = useState([])
     const [currentPage, setCurrentPage] = useState(data.currentPage || 1)
 
-    const columns = ["RUT", "Nombre de la organización", "Presidente", "Tipo de organización"]
+    const columns = ["RUT", "Nombre de la organización", "Presidente", "Tipo de organización", ""]
 
     const formattedData = data.organizations && data.organizations.map(row => {
         return (
@@ -36,7 +37,8 @@ const OrganizationsTable = () => {
                 rut: row.org_rut,
                 name: row.org_name,
                 president: row.president.name,
-                type: row.org_type
+                type: row.org_type,
+                actions: <NavLink to={String(row.id)} className="text-blue-500" >Ver</NavLink>
             }
         )
     })

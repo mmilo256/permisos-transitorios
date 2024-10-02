@@ -22,7 +22,6 @@ export const updatePresident = async (req, res) => {
 export const createPresident = async (req, res) => {
     try {
         const newPresident = await President.create({ ...req.body })
-
         res.status(201).json(newPresident)
     } catch (error) {
         console.log(error)

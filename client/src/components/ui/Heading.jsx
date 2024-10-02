@@ -15,6 +15,9 @@ const Heading = ({ variant, children, align }) => {
         case "h3":
             heading = <h3 className={`${textAlign} py-3 text-xl md:text-2xl ${headingStyles} ${align}`}>{children}</h3>
             break;
+        case "h4":
+            heading = <h3 className={`${textAlign} py-2 text-lg md:text-xl ${headingStyles} ${align}`}>{children}</h3>
+            break;
         default:
             heading = <h3>{children}</h3>
             break;

@@ -5,9 +5,7 @@ import { useState } from "react"
 import useWebFormStore from "../../stores/useWebFormStore"
 import { formatRut, onlyNumberInput, validateEmail } from "../../utils/utils"
 import Alert from "../ui/Alert"
-
-// Tipos de organización disponibles en el select
-const orgTypes = ["Junta de Vecinos", "Club Deportivo", "Agrupación", "Otro"]
+import { ORG_TYPES } from "../../constants/constants"
 
 const Form01 = () => {
     // Obtiene datos del formulario y la función para actualizar datos de la organización desde el store
@@ -65,7 +63,7 @@ const Form01 = () => {
                     <Input max={90} placeholder="José Pinto Pérez 1037" value={address} onChange={(e) => { setAddress(e.target.value) }} label="Domicilio" />
                     <Input max={40} placeholder="ejemplo@gmail.com" value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" label="Correo electrónico" />
                     <Input max={9} placeholder="942250219" value={phone} onChange={(e) => { setPhone(onlyNumberInput(e.target.value)) }} type="text" label="Teléfono" />
-                    <Input value={orgType} onChange={(e) => { setOrgType(e.target.value) }} type="select" options={orgTypes} label="Tipo de organización" />
+                    <Input value={orgType} onChange={(e) => { setOrgType(e.target.value) }} type="select" options={ORG_TYPES} label="Tipo de organización" />
                 </div>
             </FormLayout>
             <Alert variant="warning" text="El correo electrónico es inválido" visible={validationAlert} setVisible={setValidationAlert} />

@@ -3,6 +3,8 @@ import Home from './Home'
 import Applications from "./Applications"
 import ApplicationDetail from "./ApplicationDetail"
 import NavbarAdmin from "../ui/NavbarAdmin"
+import AddOrganization from "./AddOrganization"
+import OrganizationDetail from "./OrganizationDetail"
 
 const AdminPanel = () => {
     return (
@@ -11,6 +13,8 @@ const AdminPanel = () => {
             <NavbarAdmin />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="agregar-organizacion" element={<AddOrganization />} />
+                <Route path=":id" element={<OrganizationDetail />} />
                 <Route path="solicitudes" element={<Applications />} />
                 <Route path="solicitudes/:id" element={<ApplicationDetail />} />
             </Routes>
