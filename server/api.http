@@ -1,33 +1,45 @@
-GET http://localhost:4000/api/solicitudes?filters=rechazada&filters=pendiente
-
+PATCH http://localhost:4000/api/documentos/1
 ###
-
-POST http://localhost:4000/api/solicitudes
+GET http://localhost:4000/api/organizaciones/1
+###
+GET http://localhost:4000/api/documentos/2
+###
+POST http://localhost:4000/api/documentos/1
 Content-Type: application/json
 
+[
+    {
+    "fieldname": "orgFile",
+    "originalname": "comida.jpg",
+    "filename": "0004448889997777KKKK",
+    "path": "uploads\\0004448889997777KKKK.jpg"
+},
+{
+    "fieldname": "orgFile",
+    "originalname": "comida2.jpg",
+    "filename": "0004448889997777KKKK2",
+    "path": "uploads\\0004448889997777KKKK2.jpg"
+}
+]
+###
+GET http://localhost:4000/api/solicitudes?filters=rechazada&filters=pendiente
+###
+POST http://localhost:4000/api/solicitudes
+Content-Type: application/json
 {
     "org_name": "Kamehameh"
 }
-
 ###
-
 PATCH http://localhost:4000/api/solicitudes/3
 Content-Type: application/json
-
 {
     "status": "aprobada"
 }
-
 ###
-
-GET http://localhost:4000/api/organizaciones
-
-
+GET http://localhost:4000/api/organizaciones/1/documents
 ###
-
 POST http://localhost:4000/api/organizaciones
 Content-Type: application/json
-
 {
     "org_name": "Junta de vecinos de Chonchi",
     "org_rut": "77.722.230-2",
@@ -42,20 +54,16 @@ Content-Type: application/json
     "phone": "+569 84932093",
 }
 ###
-
 PATCH http://localhost:4000/api/organizaciones/17/
 Content-Type: application/json
-
 {
     "org_name": "Prueba 17"
 }
-
 ###
 GET http://localhost:4000/api/presidentes?organizationId=1
 ###
 POST http://localhost:4000/api/presidentes
 Content-Type: application/json
-
 {
     "name": "Emilio Soto B",
     "rut": "19.722.280-8",
@@ -63,7 +71,6 @@ Content-Type: application/json
     "email": "correo@gmail.com",
     "phone": "+569 84932093",
 }
-
 ###
 GET http://localhost:4000/api/permisos?organizationId=4
 ###
@@ -71,7 +78,6 @@ GET http://localhost:4000/api/permisos/1
 ###
 POST http://localhost:4000/api/permisos
 Content-Type: application/json
-
 {
     "activity_name": "Bingo bailable 666",
     "place": "Gimnasio Municipal",
@@ -85,12 +91,9 @@ Content-Type: application/json
     "purpose": "Destino de los fondos recaudados",
     "organizationId": 5
 }
-
 ###
-
 PATCH http://localhost:4000/api/permisos/4
 Content-Type: application/json
-
 {
     "place": "Miami"
 }

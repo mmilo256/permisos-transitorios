@@ -6,12 +6,14 @@ import requestRouter from './modules/requests/requestsRoutes.js'
 import organizationRouter from './modules/organizations/organizationsRoutes.js'
 import presidentRouter from './modules/presidents/presidentsRoutes.js'
 import permissionRouter from './modules/permissions/permissionsRoutes.js'
+import documentRouter from './modules/docs/docsRoutes.js'
 import multer from 'multer'
 import User from './modules/users/usersModel.js';
 import Organization from './modules/organizations/organizationsModel.js';
 import President from './modules/presidents/presidentsModel.js';
 import Permission from './modules/permissions/permissionsModel.js';
 import Request from './modules/requests/requestsModel.js';
+import Document from './modules/docs/docsModel.js';
 const app = e()
 app.use(cors())
 
@@ -20,6 +22,7 @@ await User.sync()
 await Organization.sync()
 await President.sync()
 await Permission.sync()
+await Document.sync()
 await Request.sync()
 
 // Configura el almacenamiento de Multer para renombrar archivos
@@ -56,7 +59,8 @@ app.disable('x-powered-by')
 app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), requestRouter)
-app.use("/api/organizaciones", organizationRouter)
+app.use("/api/organizaciones", upload.array('orgFiles', 12), organizationRouter)
+app.use("/api/documentos", upload.array('orgFiles', 12), documentRouter)
 app.use("/api/presidentes", presidentRouter)
 app.use("/api/permisos", permissionRouter)
 

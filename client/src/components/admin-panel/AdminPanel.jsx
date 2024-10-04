@@ -5,6 +5,7 @@ import ApplicationDetail from "./ApplicationDetail"
 import NavbarAdmin from "../ui/NavbarAdmin"
 import AddOrganization from "./AddOrganization"
 import OrganizationDetail from "./OrganizationDetail"
+import DocsManager from "./DocsManager"
 
 const AdminPanel = () => {
     return (
@@ -15,6 +16,7 @@ const AdminPanel = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="agregar-organizacion" element={<AddOrganization />} />
                 <Route path=":id" element={<OrganizationDetail />} />
+                <Route path=":id/docs" element={<DocsManager />} />
                 <Route path="solicitudes" element={<Applications />} />
                 <Route path="solicitudes/:id" element={<ApplicationDetail />} />
             </Routes>

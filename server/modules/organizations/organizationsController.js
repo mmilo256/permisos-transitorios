@@ -1,7 +1,52 @@
 import Organization from './organizationsModel.js'
 import President from '../presidents/presidentsModel.js'
-import { Op, Sequelize } from 'sequelize'
+import { Op } from 'sequelize'
 import { sequelize } from '../../config/db.js'
+import Document from '../docs/docsModel.js'
+
+export const getAllDocuments = async (req, res) => {
+    try {
+        const { id } = req.params
+        if (!id) {
+            return res.status(400).json({ status: "error", message: "No se encontró la organización" })
+        }
+        const docs = await Document.findAll({ where: { organizationId: id, active: true } })
+        res.status(200).json({ status: "success", message: "Se obtuvieron los documentos exitosamente", docs })
+    } catch (error) {
+        res.status(400).json({ status: "error", message: "No se pudo obtener los documentos", error })
+    }
+}
+
+export const uploadDocs = async (req, res) => {
+    try {
+        // ID de la organización
+        const { id } = req.params;
+
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ status: "error", message: "No se proporcionaron archivos" });
+        }
+
+        if (!id) {
+            return res.status(400).json({ status: "error", message: "ID de la organización es requerido" });
+        }
+
+        const formattedDocs = req.files.map(file => {
+            const { fieldname, originalname, filename, path } = file;
+            return {
+                fieldname,
+                originalname,
+                filename,
+                path,
+                organizationId: id
+            };
+        });
+
+        const docs = await Document.bulkCreate(formattedDocs);
+        res.status(200).json({ status: "success", message: "Documentos subidos exitosamente", docs });
+    } catch (error) {
+        res.status(400).json({ status: "error", message: "No se pudo subir los documentos", error: error.message });
+    }
+}
 
 export const getAllOrganizations = async (req, res) => {
     try {
@@ -15,12 +60,12 @@ export const getAllOrganizations = async (req, res) => {
             [Op.or]: [
                 {
                     org_name: {
-                        [Sequelize.Op.like]: `%${search}%`
+                        [Op.like]: `%${search}%`
                     }
                 },
                 {
                     org_rut: {
-                        [Sequelize.Op.like]: `%${search}%`
+                        [Op.like]: `%${search}%`
                     }
                 }
             ]
@@ -45,7 +90,6 @@ export const getAllOrganizations = async (req, res) => {
         console.log(error)
     }
 }
-
 export const getOrganizationById = async (req, res) => {
     try {
         const { id } = req.params
@@ -53,9 +97,9 @@ export const getOrganizationById = async (req, res) => {
             where: { id },
             include: [President]
         })
-        res.status(200).json(organization)
+        res.status(200).json({ status: "success", message: "Organización obtenida exitosamente", organization })
     } catch (error) {
-        console.log(error)
+        res.status(400).json({ status: "error", message: "No se pudo obtener la organización", error })
     }
 }
 export const deleteOrganization = async (req, res) => {
@@ -115,19 +159,3 @@ export const createOrganization = async (req, res) => {
         res.json({ status: "error", message: "No se pudo crear la organización", error })
     }
 }
-
-/* export const createOrganization = async (req, res) => {
-    try {
-        let docs
-        if (req.files) {
-            docs = req.files.map(file => (
-                { file }
-            ))
-        }
-        const newOrganization = await Organization.create({ ...req.body, docs })
-
-        res.status(201).json(newOrganization)
-    } catch (error) {
-        console.log(error)
-    }
-} */

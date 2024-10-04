@@ -1,7 +1,7 @@
 import Button from "./Button"
 import { IoIosClose } from "react-icons/io";
 
-const Modal = ({ isOpen, setIsOpen, title, children, onClick }) => {
+const Modal = ({ isOpen, setIsOpen, title, children, onClick, buttonText = "Rechazar" }) => {
 
     if (!isOpen) {
         return null
@@ -22,7 +22,7 @@ const Modal = ({ isOpen, setIsOpen, title, children, onClick }) => {
                 <div className="px-5 pt-5">{children}</div>
                 <footer className="flex justify-end gap-2 px-5 py-5">
                     <Button onClick={handleClose} variant="secondary">Cerrar</Button>
-                    <Button onClick={onClick} variant="primary">Rechazar</Button>
+                    <Button onClick={onClick} variant="primary">{buttonText}</Button>
                 </footer>
             </div>
         </div>
