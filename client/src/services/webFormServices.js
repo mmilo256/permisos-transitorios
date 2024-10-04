@@ -20,6 +20,15 @@ export async function getApplicationById(id) {
         console.error(error);
     }
 }
+export const updateRequest = async (id, status) => {
+    try {
+        const res = await axios.patch(`${API_URL}/api/solicitudes/${id}`, { status })
+        const data = await res.data
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const createApplication = async (data, config) => {
     try {

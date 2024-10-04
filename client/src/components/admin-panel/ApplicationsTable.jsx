@@ -4,6 +4,7 @@ import Table from "../ui/Table"
 import { formatDate } from "../../utils/utils"
 import { NavLink } from 'react-router-dom'
 import Pagination from "../ui/Pagination"
+import StatusTag from "./StatusTag"
 
 const ApplicationsTable = () => {
 
@@ -20,7 +21,7 @@ const ApplicationsTable = () => {
                 event: row.activity_name,
                 place: row.place,
                 date: formattedDate,
-                status: row.status,
+                status: <StatusTag variant={row.status} />,
                 actions: <NavLink to={String(row.id)} className="text-blue-500" >Ver solicitud</NavLink>
             }
         )
