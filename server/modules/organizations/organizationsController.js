@@ -97,11 +97,32 @@ export const getOrganizationById = async (req, res) => {
             where: { id },
             include: [President]
         })
+        if (!organization) {
+            return res.status(400).json({ status: "error", message: "La organización no existe" })
+        }
         res.status(200).json({ status: "success", message: "Organización obtenida exitosamente", organization })
     } catch (error) {
         res.status(400).json({ status: "error", message: "No se pudo obtener la organización", error })
     }
 }
+export const getOrganizationByRut = async (req, res) => {
+    try {
+        const { rut } = req.query;
+        const organization = await Organization.findOne({
+            where: { org_rut: rut }
+        });
+
+        if (!organization) {
+            return res.status(404).json({ status: "error", message: "La organización no existe" });
+        }
+
+        return res.status(200).json({ status: "success", message: "Organización obtenida exitosamente", organization });
+    } catch (error) {
+        console.error(error); // Para registrar el error en el servidor
+        return res.status(500).json({ status: "error", message: "No se pudo obtener la organización" });
+    }
+};
+
 export const deleteOrganization = async (req, res) => {
     try {
         const { id } = req.params

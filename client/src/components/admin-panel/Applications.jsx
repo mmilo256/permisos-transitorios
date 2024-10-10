@@ -13,5 +13,4 @@ const Applications = () => {
         </div>
     )
 }
-
 export default Applications

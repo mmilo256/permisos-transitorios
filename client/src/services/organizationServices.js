@@ -17,6 +17,29 @@ export const getAllOrganizations = async (page = 1, filters, search) => {
         console.log(error)
     }
 }
+export const getOrgByRut = async (rut) => {
+    try {
+        const res = await axios.get(`${API_URL}/api/organizaciones/rut?rut=${rut}`);
+        return res.data; // Devuelve directamente los datos si la solicitud fue exitosa
+    } catch (error) {
+        // Manejo de errores
+        let errorMessage = 'Error desconocido';
+
+        if (error.response) {
+            // El servidor respondió con un estado fuera del rango 2xx
+            errorMessage = error.response.data.message || 'Error en la respuesta del servidor';
+        } else if (error.request) {
+            // La solicitud fue hecha, pero no se recibió respuesta
+            errorMessage = 'No se recibió respuesta del servidor';
+        } else {
+            // Ocurrió un error al configurar la solicitud
+            errorMessage = error.message;
+        }
+
+        console.log(errorMessage); // Registrar el mensaje de error
+        return { status: 'error', message: errorMessage }; // Retornar un objeto con el error
+    }
+};
 export const removeDocument = async (id) => {
     try {
         const res = await axios.patch(`${API_URL}/api/documentos/${id}`)

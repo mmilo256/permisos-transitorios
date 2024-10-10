@@ -1,3 +1,13 @@
+###
+POST http://localhost:4000/api/email/send-email
+Content-Type: application/json
+
+{
+    "to": "emiliosotoandrade256@gmail.com",
+    "subject": "Prueba de nodemailer",
+    "html": "<h1>Correo enviado exitosamente</h1>"
+}
+###
 PATCH http://localhost:4000/api/documentos/1
 ###
 GET http://localhost:4000/api/organizaciones/1

@@ -44,7 +44,7 @@ export const formatDate = (date, format) => {
     const month = newDate.getUTCMonth() + 1 <= 9 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth() + 1
     const monthName = monthNames[month - 1]
     const year = newDate.getUTCFullYear()
-    const hour = newDate.getUTCHours() <= 9 ? `0${newDate.getUTCHours()}` : newDate.getUTCHours()
+    const hour = newDate.getUTCHours() <= 9 ? `0${newDate.getHours()}` : newDate.getHours()
     const minutes = newDate.getUTCMinutes() <= 9 ? `0${newDate.getUTCMinutes()}` : newDate.getUTCMinutes()
     let dateString
     switch (format) {

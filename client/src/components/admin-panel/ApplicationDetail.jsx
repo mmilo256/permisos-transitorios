@@ -9,6 +9,8 @@ import ApplicationDetailSkeleton from "./ApplicationDetailSkeleton"
 import { API_URL } from "../../constants/constants"
 import RejectModal from "./RejectModal"
 
+import { sendEmail } from "../../services/emailServices"
+
 const ApplicationDetail = () => {
 
     const { id } = useParams()
@@ -24,6 +26,30 @@ const ApplicationDetail = () => {
         getApplication()
     }, [id])
 
+    const sendRejectEmail = async (reason) => {
+        const emails = [data.org_email, data.owner_email]
+        const template = `
+        <div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif; background-color: #f9fafb; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+    <div style="background-color: #0F69C4; color: white; padding: 10px; border-radius: 8px 8px 0 0; text-align: center;">
+        <h1>Notificación de Solicitud</h1>
+    </div>
+    <div style="padding: 20px; background-color: white; border-radius: 0 0 8px 8px;">
+        <h2>Estimado/a:</h2>
+        <p>Gracias por su solicitud. Lamentamos informarle que su solicitud ha sido rechazada.</p>
+        <p><strong>Motivo del rechazo:</strong></p>
+        <p>${reason}</p>
+        <p>Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.</p>
+        <p>Atentamente,<br /> Ilustre Municipalidad de Chonchi</p>
+    </div>
+    <div style="text-align: center; font-size: 12px; color: #6b7280; margin-top: 20px;">
+        <p>Este es un correo automático, por favor no responda.</p>
+    </div>
+</div>
+
+        `
+        await sendEmail(emails, "SOLICITUD DE PERMISO TRANSITORIO: RECHAZADA", template)
+    }
+
 
 
     return (
@@ -31,7 +57,7 @@ const ApplicationDetail = () => {
             <div className="mt-5">
                 <Container>
                     {<div className="grid grid-cols-1 md:grid-cols-3 md:gap-2 gap-y-4">
-                        <ApplicationState setIsOpen={setIsOpen} status={data.status} name={data.activity_name} date={data.start_date} />
+                        <ApplicationState emails={{ org: data.org_email, president: data.email }} orgRut={data.org_rut} setIsOpen={setIsOpen} status={data.status} name={data.activity_name} date={data.start_date} />
                         <div className="bg-white p-2 border col-span-2">
                             <Heading variant="h3">Detalle de la solicitud</Heading>
                             <div className="border-t">
@@ -144,7 +170,7 @@ const ApplicationDetail = () => {
                     </div>}
                 </Container>
             </div>
-            <RejectModal modal={isOpen} setModal={setIsOpen} />
+            <RejectModal sendRejectEmail={sendRejectEmail} modal={isOpen} setModal={setIsOpen} />
         </>
     )
 }

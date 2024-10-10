@@ -3,7 +3,7 @@ import Input from "../ui/Input"
 import Modal from "../ui/Modal"
 import ConfirmationModal from "./ConfirmationModal"
 
-const RejectModal = ({ modal, setModal }) => {
+const RejectModal = ({ modal, setModal, sendRejectEmail }) => {
 
     const [rejectReason, setRejectReason] = useState("")
     const [confirmationModal, setConfirmationModal] = useState(false)
@@ -20,7 +20,7 @@ const RejectModal = ({ modal, setModal }) => {
                     <Input value={rejectReason} onChange={(e) => { setRejectReason(e.target.value) }} placeholder="Escriba el motivo aquí..." type="textarea" label="Escriba el motivo por el cual se rechaza la solicitud" />
                 </label>
             </Modal>
-            <ConfirmationModal modal={confirmationModal} setModal={setConfirmationModal} />
+            <ConfirmationModal reason={rejectReason} sendRejectEmail={sendRejectEmail} modal={confirmationModal} setModal={setConfirmationModal} />
         </>
     )
 }
