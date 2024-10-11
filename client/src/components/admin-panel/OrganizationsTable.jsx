@@ -5,25 +5,7 @@ import Pagination from "../ui/Pagination"
 import Search from "../ui/Search"
 import Tabs from "./Tabs"
 import { NavLink } from "react-router-dom"
-
-const options = [
-    {
-        label: "Junta de Vecinos",
-        value: "Junta de Vecinos"
-    },
-    {
-        label: "Club Deportivo",
-        value: "Club Deportivo"
-    },
-    {
-        label: "Agrupación",
-        value: "Agrupación"
-    },
-    {
-        label: "Todos",
-        value: ""
-    }
-]
+import { ORG_TYPES } from "../../constants/constants"
 
 const OrganizationsTable = () => {
     const [data, setData] = useState([])
@@ -67,7 +49,7 @@ const OrganizationsTable = () => {
                 <div className="flex items-center gap-4 mb-2">
                     <Search onSearch={onSearch} />
                 </div>
-                <Tabs options={options} onItemClick={onFilter} />
+                <Tabs options={ORG_TYPES} onItemClick={onFilter} />
                 <Table columns={columns} data={formattedData} />
                 <Pagination totalPages={data.totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </>

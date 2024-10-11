@@ -8,7 +8,6 @@ const Applications = () => {
             <Container>
                 <Heading variant="h1">Solicitudes de permisos</Heading>
                 <ApplicationsTable />
-
             </Container>
         </div>
     )

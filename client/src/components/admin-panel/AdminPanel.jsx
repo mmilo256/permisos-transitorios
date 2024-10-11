@@ -7,7 +7,6 @@ import AddOrganization from "./AddOrganization"
 import OrganizationDetail from "./OrganizationDetail"
 import DocsManager from "./DocsManager"
 import ApproveRequest from "./ApproveRequest"
-import EmailTemplate from "../EmailTemplate"
 
 const AdminPanel = () => {
     return (
@@ -23,7 +22,6 @@ const AdminPanel = () => {
                 <Route path="solicitudes" element={<Applications />} />
                 <Route path="solicitudes/:id" element={<ApplicationDetail />} />
                 <Route path="solicitudes/:id/aprobar-solicitud" element={<ApproveRequest />} />
-                <Route path="email-template" element={<EmailTemplate />} />
             </Routes>
         </>
     )

@@ -3,26 +3,31 @@ import Heading from '../ui/Heading'
 import Container from '../ui/Container'
 import Input from '../ui/Input'
 import { createOrganization } from '../../services/organizationServices'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { formatRut, onlyNumberInput } from '../../utils/utils'
 import { ORG_TYPES } from '../../constants/constants'
 
 const AddOrganization = () => {
 
     const navigate = useNavigate()
+    const location = useLocation()
+    const queryParams = new URLSearchParams(location.search)
+    const org = Object.fromEntries(queryParams.entries());
 
-    const [orgName, setOrgName] = useState("");
-    const [orgRut, setOrgRut] = useState("");
-    const [orgAddress, setOrgAddress] = useState("");
-    const [orgEmail, setOrgEmail] = useState("");
-    const [orgPhone, setOrgPhone] = useState("");
-    const [orgType, setOrgType] = useState("");
-    const [personName, setPersonName] = useState("");
-    const [personRut, setPersonRut] = useState("");
-    const [personAddress, setPersonAddress] = useState("");
-    const [personEmail, setPersonEmail] = useState("");
-    const [personPhone, setPersonPhone] = useState("");
-    const [personPhone2, setPersonPhone2] = useState("");
+    console.log(org)
+
+    const [orgName, setOrgName] = useState(org ? org.org_name : "");
+    const [orgRut, setOrgRut] = useState(org ? org.org_rut : "");
+    const [orgAddress, setOrgAddress] = useState(org ? org.org_address : "");
+    const [orgEmail, setOrgEmail] = useState(org ? org.org_email : "");
+    const [orgPhone, setOrgPhone] = useState(org ? org.org_phone : "");
+    const [orgType, setOrgType] = useState(org ? org.org_type : "");
+    const [personName, setPersonName] = useState(org ? org.owner_name : "");
+    const [personRut, setPersonRut] = useState(org ? org.owner_rut : "");
+    const [personAddress, setPersonAddress] = useState(org ? org.owner_address : "");
+    const [personEmail, setPersonEmail] = useState(org ? org.owner_email : "");
+    const [personPhone, setPersonPhone] = useState(org ? org.owner_phone : "");
+    const [personPhone2, setPersonPhone2] = useState(org ? org.owner_phone2 : "");
 
     const [isValid, setIsValid] = useState(false)
 

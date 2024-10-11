@@ -57,7 +57,7 @@ const ApplicationDetail = () => {
             <div className="mt-5">
                 <Container>
                     {<div className="grid grid-cols-1 md:grid-cols-3 md:gap-2 gap-y-4">
-                        <ApplicationState emails={{ org: data.org_email, president: data.email }} orgRut={data.org_rut} setIsOpen={setIsOpen} status={data.status} name={data.activity_name} date={data.start_date} />
+                        <ApplicationState orgData={data} setIsOpen={setIsOpen} />
                         <div className="bg-white p-2 border col-span-2">
                             <Heading variant="h3">Detalle de la solicitud</Heading>
                             <div className="border-t">
