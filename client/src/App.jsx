@@ -1,7 +1,8 @@
-import Footer from "./components/ui/Footer"
 import { Routes, Route } from "react-router-dom"
 import WebForm from "./components/webform/WebForm"
 import AdminPanel from "./components/admin-panel/AdminPanel"
+import Login from "./components/admin-panel/Login"
+import PrivateRoute from "./components/admin-panel/PrivateRoute"
 
 const App = () => {
   return (
@@ -10,12 +11,10 @@ const App = () => {
       <Routes>
         {/* Ruta para el formulario web */}
         <Route path="*" element={<WebForm />} />
+        <Route path="/login" element={<Login />} />
         {/* Ruta para el panel de administración */}
-        <Route path="admin/*" element={<AdminPanel />} />
+        <Route path="admin/*" element={<PrivateRoute><AdminPanel /></PrivateRoute>} />
       </Routes>
-
-      {/* Componente del pie de página */}
-      <Footer />
     </div>
   )
 }

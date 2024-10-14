@@ -1,3 +1,12 @@
+export const getToken = () => {
+    const token = localStorage.getItem('jwt')
+    if (!token) {
+        console.error("No se encontró el token")
+        return null
+    }
+    return token
+}
+
 // Formatear rut
 export const formatRut = (value) => {
     // Remover todos los caracteres que no sean dígitos o 'k'/'K'

@@ -8,6 +8,7 @@ import presidentRouter from './modules/presidents/presidentsRoutes.js'
 import permissionRouter from './modules/permissions/permissionsRoutes.js'
 import documentRouter from './modules/docs/docsRoutes.js'
 import emailRouter from './modules/email/emailRoutes.js'
+import userRouter from './modules/users/usersRoutes.js'
 import multer from 'multer'
 import User from './modules/users/usersModel.js';
 import Organization from './modules/organizations/organizationsModel.js';
@@ -15,6 +16,7 @@ import President from './modules/presidents/presidentsModel.js';
 import Permission from './modules/permissions/permissionsModel.js';
 import Request from './modules/requests/requestsModel.js';
 import Document from './modules/docs/docsModel.js';
+import { verifyToken } from './modules/users/usersMiddleware.js';
 const app = e()
 app.use(cors())
 
@@ -60,11 +62,12 @@ app.disable('x-powered-by')
 app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), requestRouter)
-app.use("/api/organizaciones", upload.array('orgFiles', 12), organizationRouter)
-app.use("/api/documentos", upload.array('orgFiles', 12), documentRouter)
-app.use("/api/presidentes", presidentRouter)
+app.use("/api/organizaciones", verifyToken, upload.array('orgFiles', 12), organizationRouter)
+app.use("/api/documentos", verifyToken, upload.array('orgFiles', 12), documentRouter)
+app.use("/api/presidentes", verifyToken, presidentRouter)
 app.use("/api/email", emailRouter)
-app.use("/api/permisos", permissionRouter)
+app.use("/api/permisos", verifyToken, permissionRouter)
+app.use('/api/auth', userRouter)
 
 const port = process.env.PORT || 4000
 

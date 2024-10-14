@@ -7,21 +7,20 @@ import AddOrganization from "./AddOrganization"
 import OrganizationDetail from "./OrganizationDetail"
 import DocsManager from "./DocsManager"
 import ApproveRequest from "./ApproveRequest"
+import PrivateRoute from "./PrivateRoute"
 
 const AdminPanel = () => {
     return (
-
-
         <>
             <NavbarAdmin />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="agregar-organizacion" element={<AddOrganization />} />
-                <Route path=":id" element={<OrganizationDetail />} />
-                <Route path=":id/docs" element={<DocsManager />} />
-                <Route path="solicitudes" element={<Applications />} />
-                <Route path="solicitudes/:id" element={<ApplicationDetail />} />
-                <Route path="solicitudes/:id/aprobar-solicitud" element={<ApproveRequest />} />
+                <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+                <Route path="agregar-organizacion" element={<PrivateRoute><AddOrganization /></PrivateRoute>} />
+                <Route path=":id" element={<PrivateRoute><OrganizationDetail /></PrivateRoute>} />
+                <Route path=":id/docs" element={<PrivateRoute><DocsManager /></PrivateRoute>} />
+                <Route path="solicitudes" element={<PrivateRoute><Applications /></PrivateRoute>} />
+                <Route path="solicitudes/:id" element={<PrivateRoute><ApplicationDetail /></PrivateRoute>} />
+                <Route path="solicitudes/:id/aprobar-solicitud" element={<PrivateRoute><ApproveRequest /></PrivateRoute>} />
             </Routes>
         </>
     )

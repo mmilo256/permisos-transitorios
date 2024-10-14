@@ -1,3 +1,22 @@
+GET http://localhost:4000/api/organizaciones
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVtaWxpbyIsImlhdCI6MTcyODkxOTU3MSwiZXhwIjoxNzI4OTIzMTcxfQ.grAXmmWFNyibNnPubgIf5RQE9A3Nm9tx8uEvKWJfCv4
+
+###
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "emilio",
+    "password": "emilio123"
+}
+###
+POST http://localhost:4000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "emilio",
+    "password": "emilio123"
+}
 ###
 POST http://localhost:4000/api/email/send-email
 Content-Type: application/json

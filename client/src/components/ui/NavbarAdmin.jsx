@@ -1,5 +1,6 @@
+import { logout } from "../../services/authServices"
 import Container from "./Container"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const navigation = [
     { label: "Inicio", to: "/admin" },
@@ -7,13 +8,23 @@ const navigation = [
 ]
 
 const NavbarAdmin = () => {
+
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await logout()
+        navigate("/login")
+
+    }
+
     return (
         <header className="py-2 shadow bg-white">
-            <div>
-                <Container>
+            <Container>
+                <div className="flex justify-between items-center">
                     <a href="https://municipalidadchonchi.cl/web/"><img className="h-14" src="/logo-municipalidad-de-chonchi.png" alt="logo municipalidad de chonchi" /></a>
-                </Container>
-            </div>
+                    <button onClick={handleLogout} className="hover:bg-slate-200 p-2 rounded-full">Cerrar sesión</button>
+                </div>
+            </Container>
             <nav className="border-t mt-2 pt-2">
                 <Container>
                     <ul className="flex gap-2">

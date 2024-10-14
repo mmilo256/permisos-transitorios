@@ -1,7 +1,9 @@
 import axios from "axios"
 import { API_URL } from '../constants/constants.js';
+import { getToken } from "../utils/utils.js";
 
 export const getAllOrganizations = async (page = 1, filters, search) => {
+    const token = getToken()
     try {
         let apiString = `${API_URL}/api/organizaciones?limit=5&page=${page}`
         if (filters) {
@@ -10,7 +12,7 @@ export const getAllOrganizations = async (page = 1, filters, search) => {
         if (search) {
             apiString += `&search=${search}`
         }
-        const res = await axios.get(apiString)
+        const res = await axios.get(apiString, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
@@ -18,8 +20,9 @@ export const getAllOrganizations = async (page = 1, filters, search) => {
     }
 }
 export const getOrgByRut = async (rut) => {
+    const token = getToken()
     try {
-        const res = await axios.get(`${API_URL}/api/organizaciones/rut?rut=${rut}`);
+        const res = await axios.get(`${API_URL}/api/organizaciones/rut?rut=${rut}`, { headers: { Authorization: `Bearer ${token}` } });
         return res.data; // Devuelve directamente los datos si la solicitud fue exitosa
     } catch (error) {
         // Manejo de errores
@@ -39,41 +42,49 @@ export const getOrgByRut = async (rut) => {
         console.log(errorMessage); // Registrar el mensaje de error
         return { status: 'error', message: errorMessage }; // Retornar un objeto con el error
     }
+
 };
 export const removeDocument = async (id) => {
+    const token = getToken()
     try {
-        const res = await axios.patch(`${API_URL}/api/documentos/${id}`)
+        const res = await axios.patch(`${API_URL}/api/documentos/${id}`, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
         console.log(error)
     }
+
 }
 
 export const getDocsById = async (id) => {
+    const token = getToken()
     try {
-        const res = await axios.get(`${API_URL}/api/organizaciones/${id}/documents`)
+        const res = await axios.get(`${API_URL}/api/organizaciones/${id}/documents`, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
         console.log(error)
     }
+
 }
 export const uploadDocs = async (id, docs) => {
+    const token = getToken()
     try {
         const res = await axios.post(`${API_URL}/api/organizaciones/${id}/upload`, docs, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: [{ 'Content-Type': 'multipart/form-data' }, { Authorization: `Bearer ${token}` }]
         })
         const data = res.data
         return data
     } catch (error) {
         console.log(error)
     }
+
 }
 
 export const getOrgById = async (id) => {
+    const token = getToken()
     try {
-        const res = await axios.get(`${API_URL}/api/organizaciones/${id}`)
+        const res = await axios.get(`${API_URL}/api/organizaciones/${id}`, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
@@ -82,8 +93,9 @@ export const getOrgById = async (id) => {
 }
 
 export const createOrganization = async (organization) => {
+    const token = getToken()
     try {
-        const res = await axios.post(`${API_URL}/api/organizaciones`, organization)
+        const res = await axios.post(`${API_URL}/api/organizaciones`, organization, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
