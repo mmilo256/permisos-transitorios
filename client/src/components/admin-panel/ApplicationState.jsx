@@ -3,6 +3,9 @@ import { formatDate } from "../../utils/utils"
 import Button from "../ui/Button"
 import Heading from "../ui/Heading"
 import StatusTag from "./StatusTag"
+import { getOrgByRut } from "../../services/organizationServices"
+import Modal from "../ui/Modal"
+import { useState } from "react"
 
 const ApplicationState = ({ orgData, setIsOpen }) => {
 
@@ -10,10 +13,19 @@ const ApplicationState = ({ orgData, setIsOpen }) => {
     const handleReject = () => {
         setIsOpen(true)
     }
+    const [confirmModal, setConfirmModal] = useState(false)
 
-    const handleApprove = () => {
+
+    const handleApprove = async () => {
         const queryParams = new URLSearchParams(orgData).toString()
-        navigate(`aprobar-solicitud?${queryParams}`)
+        const data = await getOrgByRut(orgData.org_rut)
+        if (!data.organization) {
+            alert("La organización no existe en el sistema. Debe agregar la organización antes de crear el permiso")
+            navigate(`/admin/agregar-organizacion?${queryParams}`)
+        } else {
+            navigate(`aprobar-solicitud?${queryParams}`)
+        }
+
     }
 
     return (
@@ -28,6 +40,9 @@ const ApplicationState = ({ orgData, setIsOpen }) => {
                     <Button onClick={handleReject} fullWidth variant="reject" >Rechazar</Button>
                 </div>}
             </div>
+            <Modal isOpen={confirmModal} setIsOpen={setConfirmModal} title="Agregar organización" buttonText="Aceptar">
+                <p>La organización solicitante no existe en el sistema. Debe agregar la organización antes de aprobar el permiso</p>
+            </Modal>
         </>
     )
 }

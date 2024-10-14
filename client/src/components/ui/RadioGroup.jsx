@@ -1,4 +1,4 @@
-const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
+const RadioGroup = ({ label, options, name, selectedValue, onChange, disabled }) => {
     return (
         <div>
             {/* Etiqueta del grupo de radios */}
@@ -9,6 +9,7 @@ const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
                     <label key={index}>
                         <input
                             className="mr-1"
+                            disabled={disabled}
                             type="radio"
                             value={op.value} // Valor asociado al botón de radio
                             name={name} // Nombre del grupo de botones de radio para agrupación

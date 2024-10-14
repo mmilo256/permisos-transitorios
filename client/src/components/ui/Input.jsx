@@ -1,4 +1,4 @@
-const Input = ({ label, type, options, value, onChange, placeholder, max }) => {
+const Input = ({ label, type, options, value, onChange, placeholder, max, disabled }) => {
     // Define estilos comunes para todos los tipos de entrada
     const inputStyles = "border border-slate-400 p-1 w-full focus:outline-blue-400"
 
@@ -9,11 +9,11 @@ const Input = ({ label, type, options, value, onChange, placeholder, max }) => {
     switch (type) {
         case "textarea":
             // Renderiza un textarea si el tipo es "textarea"
-            input = <textarea maxLength={max} placeholder={placeholder} value={value} onChange={onChange} className={inputStyles} />
+            input = <textarea disabled={disabled} maxLength={max} placeholder={placeholder} value={value} onChange={onChange} className={inputStyles} />
             break;
         case "select":
             // Renderiza un select si el tipo es "select"
-            input = <select value={value} onChange={onChange} className={inputStyles}>
+            input = <select disabled={disabled} value={value} onChange={onChange} className={inputStyles}>
                 <option disabled value="">Seleccione una opción</option>
                 {/* Mapea las opciones para crear elementos <option> */}
                 {options.map((op, index) => (
@@ -23,7 +23,7 @@ const Input = ({ label, type, options, value, onChange, placeholder, max }) => {
             break;
         default:
             // Renderiza un input de tipo genérico si no es ninguno de los anteriores
-            input = <input maxLength={max} placeholder={placeholder} value={value} onChange={onChange} className={inputStyles} type={type} />
+            input = <input disabled={disabled} maxLength={max} placeholder={placeholder} value={value} onChange={onChange} className={inputStyles} type={type} />
             break;
     }
 
