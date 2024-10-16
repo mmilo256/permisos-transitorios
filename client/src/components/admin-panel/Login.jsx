@@ -16,14 +16,14 @@ const Login = () => {
         e.preventDefault()
         try {
             await login(username, password)
-            navigate("/admin")
+            navigate("/")
         } catch (error) {
             console.log("No se pudo iniciar sesión.", error.message)
         }
     }
 
     if (token) {
-        return <Navigate to="/admin" />
+        return <Navigate to="/" />
     }
 
     return (

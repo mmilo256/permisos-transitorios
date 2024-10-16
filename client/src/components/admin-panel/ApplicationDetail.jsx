@@ -5,7 +5,6 @@ import ApplicationState from "./ApplicationState"
 import Container from "../ui/Container"
 import Heading from "../ui/Heading"
 import { formatDate } from "../../utils/utils"
-import ApplicationDetailSkeleton from "./ApplicationDetailSkeleton"
 import { API_URL } from "../../constants/constants"
 import RejectModal from "./RejectModal"
 
@@ -53,7 +52,7 @@ const ApplicationDetail = () => {
 
 
     return (
-        Object.keys(data).length <= 0 ? <ApplicationDetailSkeleton /> : <>
+        <>
             <div className="mt-5">
                 <Container>
                     {<div className="grid grid-cols-1 md:grid-cols-3 md:gap-2 gap-y-4">

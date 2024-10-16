@@ -1,4 +1,28 @@
+import { generateAct } from '../../templates/generarDecreto.js'
 import Permission from './permissionsModel.js'
+
+export const postAct = async (req, res) => {
+    try {
+        const { org_name, org_rut, activity_name, owner_name, owner_rut, start_date, place, start_time, end_time } = req.body
+        const data = {
+            org_name,
+            org_rut,
+            activity_name,
+            owner_name,
+            owner_rut,
+            start_date,
+            place,
+            start_time,
+            end_time
+        }
+
+        console.log(data)
+        const formattedData = generateAct(data)
+        res.status(200).json({ message: "El decreto se generó exitosamente.", formattedData })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
 
 export const getAllPermissions = async (req, res) => {
     try {

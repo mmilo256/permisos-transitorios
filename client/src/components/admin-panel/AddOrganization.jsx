@@ -14,20 +14,18 @@ const AddOrganization = () => {
     const queryParams = new URLSearchParams(location.search)
     const org = Object.fromEntries(queryParams.entries());
 
-    console.log(org)
-
-    const [orgName, setOrgName] = useState(org ? org.org_name : "");
-    const [orgRut, setOrgRut] = useState(org ? org.org_rut : "");
-    const [orgAddress, setOrgAddress] = useState(org ? org.org_address : "");
-    const [orgEmail, setOrgEmail] = useState(org ? org.org_email : "");
-    const [orgPhone, setOrgPhone] = useState(org ? org.org_phone : "");
-    const [orgType, setOrgType] = useState(org ? org.org_type : "");
-    const [personName, setPersonName] = useState(org ? org.owner_name : "");
-    const [personRut, setPersonRut] = useState(org ? org.owner_rut : "");
-    const [personAddress, setPersonAddress] = useState(org ? org.owner_address : "");
-    const [personEmail, setPersonEmail] = useState(org ? org.owner_email : "");
-    const [personPhone, setPersonPhone] = useState(org ? org.owner_phone : "");
-    const [personPhone2, setPersonPhone2] = useState(org ? org.owner_phone2 : "");
+    const [orgName, setOrgName] = useState(org.org_name ? org.org_name : "");
+    const [orgRut, setOrgRut] = useState(org.org_rut ? org.org_rut : "");
+    const [orgAddress, setOrgAddress] = useState(org.org_address ? org.org_address : "");
+    const [orgEmail, setOrgEmail] = useState(org.org_email ? org.org_email : "");
+    const [orgPhone, setOrgPhone] = useState(org.org_phone ? org.org_phone : "");
+    const [orgType, setOrgType] = useState(org.org_type ? org.org_type : "");
+    const [personName, setPersonName] = useState(org.owner_name ? org.owner_name : "");
+    const [personRut, setPersonRut] = useState(org.owner_rut ? org.owner_rut : "");
+    const [personAddress, setPersonAddress] = useState(org.owner_address ? org.owner_address : "");
+    const [personEmail, setPersonEmail] = useState(org.owner_email ? org.owner_email : "");
+    const [personPhone, setPersonPhone] = useState(org.owner_phone ? org.owner_phone : "");
+    const [personPhone2, setPersonPhone2] = useState(org.owner_phone2 ? org.owner_phone2 : "");
 
     const [isValid, setIsValid] = useState(false)
 
@@ -59,7 +57,7 @@ const AddOrganization = () => {
             const { status, message } = await createOrganization(orgData)
             alert(message)
             if (status === "success") {
-                navigate("/admin")
+                navigate("/")
             }
         } catch (error) {
             alert("No se pudo crear la organización", error)

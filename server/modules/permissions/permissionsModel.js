@@ -1,6 +1,5 @@
 import { sequelize } from '../../config/db.js'
 import { DataTypes } from 'sequelize'
-import Organization from '../organizations/organizationsModel.js';
 
 const Permission = sequelize.define('permissions', {
     id: {
@@ -18,6 +17,7 @@ const Permission = sequelize.define('permissions', {
     is_food: DataTypes.BOOLEAN,
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
+    act_doc: DataTypes.JSON,
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true

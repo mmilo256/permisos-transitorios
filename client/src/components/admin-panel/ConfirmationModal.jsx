@@ -12,7 +12,7 @@ const ConfirmationModal = ({ reason, modal, setModal, sendRejectEmail }) => {
         await sendRejectEmail(reason)
         alert("Solicitud rechazada")
         setModal(false)
-        navigate("/admin/solicitudes")
+        navigate("/solicitudes")
     }
 
     return (

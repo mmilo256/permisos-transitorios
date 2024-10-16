@@ -21,7 +21,7 @@ const ApplicationState = ({ orgData, setIsOpen }) => {
         const data = await getOrgByRut(orgData.org_rut)
         if (!data.organization) {
             alert("La organización no existe en el sistema. Debe agregar la organización antes de crear el permiso")
-            navigate(`/admin/agregar-organizacion?${queryParams}`)
+            navigate(`/agregar-organizacion?${queryParams}`)
         } else {
             navigate(`aprobar-solicitud?${queryParams}`)
         }

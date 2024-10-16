@@ -69,9 +69,13 @@ export const getDocsById = async (id) => {
 }
 export const uploadDocs = async (id, docs) => {
     const token = getToken()
+    console.log(token)
     try {
         const res = await axios.post(`${API_URL}/api/organizaciones/${id}/upload`, docs, {
-            headers: [{ 'Content-Type': 'multipart/form-data' }, { Authorization: `Bearer ${token}` }]
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+            }
         })
         const data = res.data
         return data

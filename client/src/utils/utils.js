@@ -1,7 +1,7 @@
 export const getToken = () => {
     const token = localStorage.getItem('jwt')
     if (!token) {
-        console.error("No se encontró el token")
+        console.log("No se encontró el token")
         return null
     }
     return token

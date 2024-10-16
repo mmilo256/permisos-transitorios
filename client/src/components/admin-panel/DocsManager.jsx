@@ -20,7 +20,7 @@ const DocsManager = () => {
 
         try {
             await uploadDocs(id, formData); // Cambia 'files' por 'formData'
-            navigate(`/admin/${id}`);
+            navigate(`/${id}`);
             alert("Documentos subidos exitosamente");
         } catch (error) {
             alert("No se pudo subir los documentos");

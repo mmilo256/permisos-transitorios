@@ -1,10 +1,13 @@
+import logo from '../../assets/logo.png'
 import Container from './Container'
 
 const Footer = () => {
     return (
-        <footer className='bg-slate-800 py-16 mt-6'>
+        <footer className='bg-blue-950 py-6 mt-5'>
             <Container>
-                <p className='text-white'>Municipalidad de Chonchi</p>
+                <a href="https://municipalidadchonchi.cl">
+                    <img className='h-16' src={logo} alt="logo municipalidad de chonchi" />
+                </a>
             </Container>
         </footer>
     )

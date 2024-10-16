@@ -63,7 +63,7 @@ app.use(e.json())
 
 app.use("/api/solicitudes", upload.array('files', 12), requestRouter)
 app.use("/api/organizaciones", verifyToken, upload.array('orgFiles', 12), organizationRouter)
-app.use("/api/documentos", verifyToken, upload.array('orgFiles', 12), documentRouter)
+app.use("/api/documentos", upload.array('orgFiles', 12), documentRouter)
 app.use("/api/presidentes", verifyToken, presidentRouter)
 app.use("/api/email", emailRouter)
 app.use("/api/permisos", verifyToken, permissionRouter)
