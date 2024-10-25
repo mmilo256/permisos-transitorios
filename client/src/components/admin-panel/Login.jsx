@@ -3,10 +3,11 @@ import Button from "../ui/Button"
 import Input from "../ui/Input"
 import { login } from "../../services/authServices"
 import { Navigate, useNavigate } from "react-router-dom"
+import { validateToken } from "../../utils/utils"
 
 const Login = () => {
 
-    const token = localStorage.getItem('jwt')
+    const token = validateToken()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -28,7 +29,7 @@ const Login = () => {
 
     return (
         <div className="h-svh bg-teal-600 flex justify-center items-center">
-            <div className="bg-white w-96 rounded p-4 shadow">
+            <div className="bg-white max-w-96 w-[95%]  rounded p-4 shadow">
                 <h2 className="text-center text-2xl border-b border-slate-300 mb-2 pb-2">Iniciar sesión</h2>
                 <form onSubmit={handleSubmit} action="">
                     <Input value={username} onChange={(e) => { setUsername(e.target.value) }} label="Nombre de usuario" />

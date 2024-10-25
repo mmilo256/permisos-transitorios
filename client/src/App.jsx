@@ -9,6 +9,7 @@ import ApplicationDetail from "./components/admin-panel/ApplicationDetail"
 import ApproveRequest from "./components/admin-panel/ApproveRequest"
 import Home from "./components/admin-panel/Home"
 import FormLayout from "./components/admin-panel/FormLayout"
+import PermissionDetail from "./components/admin-panel/PermissionDetail"
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="/" element={<PrivateRoute><FormLayout><Home /></FormLayout></PrivateRoute>} />
+        <Route path="permisos/:id" element={<PrivateRoute><FormLayout><PermissionDetail /></FormLayout></PrivateRoute>} />
         <Route path="agregar-organizacion" element={<PrivateRoute> <FormLayout><AddOrganization /></FormLayout> </PrivateRoute>} />
         <Route path=":id" element={<PrivateRoute> <FormLayout><OrganizationDetail /></FormLayout> </PrivateRoute>} />
         <Route path=":id/docs" element={<PrivateRoute><FormLayout><DocsManager /></FormLayout></PrivateRoute>} />

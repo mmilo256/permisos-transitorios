@@ -38,7 +38,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Las contraseñas no coinciden" })
         }
         // JWT
-        const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN })
         res.status(200).json({ message: "Inicio de sesión exitoso", token })
     } catch (error) {
         res.status(400).json({ message: "No se pudo iniciar sesión", error: error.message })

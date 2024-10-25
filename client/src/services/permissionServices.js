@@ -1,26 +1,32 @@
-import axios from "axios"
-import { API_URL } from '../constants/constants.js';
+import { getToken } from "../utils/utils"
+import api from "./api.js"
 
-/* export const getAllPermissions = async (page = 1, filters, search) => {
+export const getPermissionById = async (id) => {
+    const token = getToken()
     try {
-        let apiString = `${API_URL}/api/permisos?limit=5&page=${page}`
-        if (filters) {
-            apiString += `&filters=${filters}`
-        }
-        if (search) {
-            apiString += `&search=${search}`
-        }
-        const res = await axios.get(apiString)
+        const res = await api.get(`/permisos/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+        const data = res.data
+        return data
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+export const getAllPermissions = async (page = 1, orgId) => {
+    const token = getToken()
+    try {
+        let apiString = `/permisos?organizationId=${orgId}&page=${page}&limit=5`
+        const res = await api.get(apiString, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {
         console.log(error)
     }
-} */
-
+}
 export const createPermission = async (permission) => {
+    const token = getToken()
     try {
-        const res = await axios.post(`${API_URL}/api/permisos`, permission)
+        const res = await api.post(`/permisos`, permission, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {

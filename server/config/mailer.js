@@ -12,13 +12,13 @@ const transporter = nodemailer.createTransport({
 })
 
 // Función para enviar correo
-export const sendMail = (to, subject, text, html) => {
+export const sendMail = (to, subject, html, attachments) => {
     const mailOptions = {
         from: process.env.EMAIL, // tu email
         to,
         subject,
-        text,
-        html
+        html,
+        attachments
     }
 
     return new Promise((resolve, reject) => {

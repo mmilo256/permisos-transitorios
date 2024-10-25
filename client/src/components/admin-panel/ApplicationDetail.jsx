@@ -5,7 +5,7 @@ import ApplicationState from "./ApplicationState"
 import Container from "../ui/Container"
 import Heading from "../ui/Heading"
 import { formatDate } from "../../utils/utils"
-import { API_URL } from "../../constants/constants"
+import { BACKEND_URL } from "../../constants/constants"
 import RejectModal from "./RejectModal"
 
 import { sendEmail } from "../../services/emailServices"
@@ -160,7 +160,7 @@ const ApplicationDetail = () => {
                                 <h3 className="my-2 text-2xl">Antecedentes</h3>
                                 <div>
                                     {data.docs && data.docs.map((file, index) => (
-                                        <a className="block text-blue-600 underline" target="_blank" href={`${API_URL}/uploads/${file.file.filename}`} key={index}>{file.file.originalname}</a>
+                                        <a className="block text-blue-600 underline" target="_blank" href={`${BACKEND_URL}/uploads/${file.file.filename}`} key={index}>{file.file.originalname}</a>
                                     ))}
                                 </div>
                             </div>

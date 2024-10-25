@@ -1,9 +1,15 @@
 import { useMemo, useState } from "react"
 import Container from "../ui/Container"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Input from "../ui/Input"
 import Heading from "../ui/Heading"
 import RadioGroup from "../ui/RadioGroup"
+import Button from "../ui/Button"
+import { createPermission } from "../../services/permissionServices"
+import { updateRequest } from "../../services/webFormServices"
+/* import { formatDate } from "../../utils/utils"
+import { sendEmail } from "../../services/emailServices"
+import { BACKEND_URL } from "../../constants/constants" */
 
 const ApproveRequest = () => {
 
@@ -31,8 +37,91 @@ const ApproveRequest = () => {
     const [description, setDescription] = useState(orgData.description || "")
     const [purpose, setPurpose] = useState(orgData.purpose || "")
 
+    const navigate = useNavigate()
+
     const toggleEditMode = () => {
         setIsDisabled(!isDisabled)
+    }
+
+    /* const sendApproveEmail = async (attachment) => {
+        const emails = [orgData.org_email, orgData.owner_email]
+        const template = `
+        <div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif; background-color: #f9fafb; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+  <div style="background-color: #0F69C4; color: white; padding: 10px; border-radius: 8px 8px 0 0; text-align: center;">
+    <h1>Notificación de Solicitud Aprobada</h1>
+  </div>
+  <div style="padding: 20px; background-color: white; border-radius: 0 0 8px 8px;">
+    <h2>Estimado/a:</h2>
+    <p>Nos complace informarle que su solicitud de permiso ha sido aprobada.</p>
+    <p><strong>Detalles del permiso:</strong></p>
+    <div style="padding: 15px; background-color: #eee; border-radius: 10px">
+      <p>Actividad: <strong>${name}</strong></p>
+      <p>Ubicación: <strong>${place}</strong></p>
+      <p>¿consumo y/o venta de alcohol?: <strong>${alcohol ? "Si" : "No"}</strong></p>
+      <p>¿consumo y/o venta de alimentos?: <strong>${food ? "Si" : "No"}</strong></p>
+      <p>Fecha y hora de inicio: <strong>${formatDate(startDate, 1)}, ${startTime}</strong></p>
+      <p>Fecha y hora de término: <strong>${formatDate(endDate, 1)}, ${endTime}</strong></p>
+      <p>Descripción: <strong>${description}</strong></p>
+      <p>Destino de los fondos: <strong>${purpose}</strong></p>
+    </div>
+<hr style="margin: 10px 0">
+    <p>Adjunto a este correo encontrará el decreto correspondiente al permiso aprobado.</p>
+    <p>Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.</p>
+    <p>
+      Atentamente,<br />
+      Ilustre Municipalidad de Chonchi
+    </p>
+  </div>
+  <div style="text-align: center; font-size: 12px; color: #6b7280; margin-top: 20px;">
+    <p>Este es un correo automático, por favor no responda.</p>
+  </div>
+</div>
+        `
+        await sendEmail(emails, "SOLICITUD DE PERMISO TRANSITORIO: APROBADA", template, attachment)
+    } */
+
+    const generateAct = async (e) => {
+        e.preventDefault()
+        const {
+            org_name,
+            org_rut,
+            owner_name,
+            owner_rut,
+            activity_name,
+            place,
+            start_date,
+            start_time,
+            end_date,
+            end_time,
+            is_alcohol,
+            is_food,
+            description,
+            purpose } = orgData
+        const data = {
+            org_name,
+            org_rut,
+            owner_name,
+            owner_rut,
+            activity_name,
+            place,
+            start_date,
+            start_time,
+            end_date,
+            end_time,
+            is_alcohol,
+            is_food,
+            description,
+            purpose
+        }
+        try {
+            await createPermission(data)
+            await updateRequest(orgData.id, "aprobada")
+            alert("Permiso creado exitosamente")
+            navigate("/solicitudes")
+        } catch (error) {
+            alert("No se pudo crear el permiso.")
+            console.log(error.message)
+        }
     }
 
     return (
@@ -65,11 +154,10 @@ const ApproveRequest = () => {
                     <span>{isDisabled ? "Habilitar edición" : "Deshabilitar edición"}</span>
                 </button>
                 <div className='flex justify-end mt-4'>
-                    <input className='cursor-pointer bg-primary hover:bg-primaryHover disabled:bg-blue-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center' type="submit" value="Generar permiso" />
+                    <Button onClick={generateAct}>Generar permiso</Button>
                 </div>
 
             </form>
-
         </Container>
     )
 }

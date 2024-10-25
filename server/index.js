@@ -53,6 +53,7 @@ const __dirname = path.dirname(__filename);
 
 // Configuración para servir archivos estáticos
 app.use('/uploads', e.static(path.join(__dirname, 'uploads')));
+app.use('/decretos', e.static(path.join(__dirname, 'decretos')));
 
 
 

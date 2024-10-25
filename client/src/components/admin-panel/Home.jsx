@@ -7,8 +7,8 @@ const Home = () => {
     return (
         <div>
             <Container>
-                <Heading variant="h1">Organizaciones</Heading>
-                <div className="mb-4 w-52">
+                <Heading align="text-center md:text-left" variant="h1">Organizaciones</Heading>
+                <div className="mb-4 w-full md:w-52">
                     <Button href="agregar-organizacion" type="link">Agregar organización</Button>
                 </div>
                 <OrganizationsTable />

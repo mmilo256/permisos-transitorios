@@ -1,9 +1,8 @@
-import axios from "axios"
-import { API_URL } from '../constants/constants.js';
+import api from "./api.js";
 
 /* export const getAllPresidents = async (page = 1, filters, search) => {
     try {
-        let apiString = `${API_URL}/api/presidentes?limit=5&page=${page}`
+        let apiString = `/presidentes?limit=5&page=${page}`
         if (filters) {
             apiString += `&filters=${filters}`
         }
@@ -20,7 +19,7 @@ import { API_URL } from '../constants/constants.js';
 
 export const createPresident = async (president) => {
     try {
-        const res = await axios.post(`${API_URL}/api/presidentes`, president)
+        const res = await api.post(`/presidentes`, president)
         const data = res.data
         return data
     } catch (error) {

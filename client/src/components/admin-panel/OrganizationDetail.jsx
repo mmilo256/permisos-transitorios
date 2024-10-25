@@ -4,51 +4,43 @@ import { getDocsById, getOrgById, removeDocument } from "../../services/organiza
 import Heading from "../ui/Heading"
 import Container from "../ui/Container"
 import Button from "../ui/Button"
-import { API_URL } from "../../constants/constants"
+import { BACKEND_URL } from "../../constants/constants"
 import { MdDelete } from "react-icons/md";
 import Modal from "../ui/Modal"
+import PermissionsTable from "./PermissionsTable"
+import { getAllPermissions } from "../../services/permissionServices"
 
 const OrganizationDetail = () => {
 
     const { id } = useParams()
     const [organization, setOrganization] = useState({})
     const [documents, setDocuments] = useState([])
+    const [permissions, setPermissions] = useState([])
     const [loading, setLoading] = useState(false)
     const [confirmationModal, setConfirmationModal] = useState(false)
     const [currentDoc, setCurrentDoc] = useState("")
     const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
-        const showOrganizationDetail = async () => {
-            setLoading(true)
-            try {
-                const org = await getOrgById(id)
-                setOrganization(org.organization)
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        showOrganizationDetail()
-    }, [id])
-    useEffect(() => {
         (
             async () => {
                 setLoading(true)
                 try {
+                    const org = await getOrgById(id)
+                    setOrganization(org.organization)
                     const docs = await getDocsById(id)
                     setDocuments(docs.docs)
+                    const data = await getAllPermissions(1, id)
+                    setPermissions(data.permissions)
                 } catch (error) {
-                    console.log(error)
+                    alert("No se pudo cargar la información de la organización")
+                    console.log(error.message)
                 } finally {
                     setLoading(false)
                 }
             }
         )()
-    }, [id, refresh])
-
-    if (loading) return <p>Cargando...</p>
+    }, [id])
 
     const { org_name, org_rut, org_address, org_email, org_phone, org_type, president } = organization;
     const { name, rut, address, email, phone, phone2 } = president || {};
@@ -68,7 +60,7 @@ const OrganizationDetail = () => {
         <div>
             <Container>
                 <Heading variant="h1">{org_name}</Heading>
-                <div className="grid grid-cols-2 gap-5 text-slate-700">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-slate-700">
                     <div className="bg-white p-4 shadow">
                         <div>
                             <Heading variant="h4">Datos de la organización</Heading>
@@ -111,7 +103,7 @@ const OrganizationDetail = () => {
                                     return (
                                         <tr className="odd:bg-blue-50 even:bg-blue-100" key={index}>
                                             <td className="px-1">{doc.id}</td>
-                                            <td className="px-2"><a className="text-primary underline" target="_blank" href={`${API_URL}/${doc.path}`}>{doc.originalname}</a></td>
+                                            <td className="px-2"><a className="text-primary underline" target="_blank" href={`${BACKEND_URL}/${doc.path}`}>{doc.originalname}</a></td>
                                             <td>
                                                 <button onClick={() => { handleDelete(doc) }} className="text-sm w-14 text-red-600"><MdDelete size={24} /></button>
                                             </td>
@@ -127,6 +119,7 @@ const OrganizationDetail = () => {
 
                     </div>
                 </div>
+                <PermissionsTable data={permissions} orgName={org_name} />
             </Container>
             <Modal isOpen={confirmationModal} onClick={deleteDoc} setIsOpen={setConfirmationModal} title="Borrar documento" buttonText="Si, borrar">
                 <p>¿Seguro que desea borrar el siguiente documento?</p>

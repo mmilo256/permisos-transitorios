@@ -1,10 +1,22 @@
-export const getToken = () => {
-    const token = localStorage.getItem('jwt')
+import { jwtDecode } from "jwt-decode"
+
+export const getToken = () => localStorage.getItem('jwt');
+
+export const validateToken = () => {
+    const token = getToken()
+    // Comprobar que el token existe
     if (!token) {
-        console.log("No se encontró el token")
-        return null
+        return false
     }
-    return token
+    // Verificar que el token no esté expirado
+    const decode = jwtDecode(token)
+    const timeNow = Math.floor(Date.now() / 1000)
+    if (timeNow > decode.exp) {
+        localStorage.removeItem('jwt')
+        return false
+    } else {
+        return true
+    }
 }
 
 // Formatear rut

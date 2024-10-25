@@ -1,24 +1,59 @@
 import { generateAct } from '../../templates/generarDecreto.js'
+import Organization from '../organizations/organizationsModel.js'
 import Permission from './permissionsModel.js'
 
-export const postAct = async (req, res) => {
+export const createPermission = async (req, res) => {
     try {
-        const { org_name, org_rut, activity_name, owner_name, owner_rut, start_date, place, start_time, end_time } = req.body
-        const data = {
+        // Obtener los datos del cuerpo de la petición
+        const {
             org_name,
             org_rut,
-            activity_name,
             owner_name,
             owner_rut,
-            start_date,
+            activity_name,
             place,
+            start_date,
             start_time,
-            end_time
+            end_date,
+            end_time,
+            is_alcohol,
+            is_food,
+            description,
+            purpose
+        } = req.body
+        // Obtener ID de la organización a la que pertenece el permiso
+        const org = await Organization.findOne({ attributes: ["id"], where: { org_rut } })
+        const organizationId = org ? org.id : null
+        // Datos del decreto
+        const actData = {
+            org_name,
+            org_rut,
+            owner_name,
+            owner_rut,
+            activity_name,
+            place,
+            start_date,
+            start_time,
+            end_date,
+            end_time,
         }
-
-        console.log(data)
-        const formattedData = generateAct(data)
-        res.status(200).json({ message: "El decreto se generó exitosamente.", formattedData })
+        // Datos del permiso
+        const permissionData = {
+            activity_name,
+            place,
+            start_date,
+            start_time,
+            end_date,
+            end_time,
+            is_alcohol,
+            is_food,
+            description,
+            purpose,
+            organizationId
+        }
+        const formattedData = generateAct(actData)
+        const newPermission = await Permission.create({ ...permissionData, act_doc: formattedData })
+        res.status(200).json({ message: "El permiso se generó exitosamente", permission: newPermission, act: formattedData })
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -64,18 +99,9 @@ export const getPermissionById = async (req, res) => {
     try {
         const { id } = req.params
         const permission = await Permission.findOne({ where: { id } })
-        res.status(200).json(permission)
+        res.status(200).json({ message: "Permiso obtenido exitosamente", permission })
     } catch (error) {
-        console.log(error)
-    }
-}
-
-export const createPermission = async (req, res) => {
-    try {
-        const newPermission = await Permission.create({ ...req.body })
-
-        res.status(201).json(newPermission)
-    } catch (error) {
-        console.log(error)
+        console.error(error)
+        res.status(400).json({ message: "No se pudo obtener el permiso", error: error.message })
     }
 }

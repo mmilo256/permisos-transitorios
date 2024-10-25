@@ -3,6 +3,7 @@ import President from '../presidents/presidentsModel.js'
 import { Op } from 'sequelize'
 import { sequelize } from '../../config/db.js'
 import Document from '../docs/docsModel.js'
+import Permission from '../permissions/permissionsModel.js'
 
 export const getAllDocuments = async (req, res) => {
     try {

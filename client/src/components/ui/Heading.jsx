@@ -1,4 +1,4 @@
-const Heading = ({ variant, children, align }) => {
+const Heading = ({ variant = "h1", children, align = "text-left" }) => {
 
     let heading;
     let textAlign;

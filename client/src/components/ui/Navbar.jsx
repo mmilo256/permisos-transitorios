@@ -23,7 +23,7 @@ const Navbar = () => {
             <Container>
                 <div className="flex justify-between items-center">
                     <a href="https://municipalidadchonchi.cl/web/"><img className="h-14" src={logo} alt="logo municipalidad de chonchi" /></a>
-                    <button onClick={handleLogout} className="hover:bg-slate-200 p-2 rounded-full">Cerrar sesión</button>
+                    <button onClick={handleLogout} className="bg-sky-800 hover:bg-sky-900 p-2 text-white rounded-full">Cerrar sesión</button>
                 </div>
             </Container>
             <nav className="border-t mt-2 pt-2">

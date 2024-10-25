@@ -1,9 +1,9 @@
-import { getToken } from "../../utils/utils"
+import { validateToken } from "../../utils/utils"
 import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = ({ children }) => {
 
-    const token = getToken()
+    const token = validateToken()
 
     if (!token) {
         return <Navigate to="/login" />

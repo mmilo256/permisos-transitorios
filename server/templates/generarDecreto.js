@@ -54,13 +54,20 @@ export const generateAct = (data) => {
         compression: "DEFLATE"
     });
 
+    // 6. Formatear datos del archivo
+    const filename = `DECRETO_${Date.now()}.docx`
+    const fileData = {
+        filename,
+        path: `decretos\\${filename}`
+    }
+
+    console.log(__dirname)
+
     // 6. Convertir el buffer en un archivo
-    writeFileSync(resolve(__dirname, "output.docx"), buf);
+    writeFileSync(resolve(resolve(__dirname, '../decretos'), fileData.filename), buf);
     // Instead of writing it to a file, you could also
     // let the user download it, store it in a database,
     // on AWS S3, ...
 
-    return formattedData
-
-
+    return fileData
 }
