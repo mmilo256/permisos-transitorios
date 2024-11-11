@@ -20,7 +20,8 @@ import { verifyToken } from './modules/users/usersMiddleware.js';
 const app = e()
 app.use(cors({
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    credentials: true
+    credentials: true,
+
 }))
 
 // Creación de tablas al inicializar la aplicación por primera vez
@@ -73,7 +74,7 @@ app.use("/api/email", emailRouter)
 app.use("/api/permisos", verifyToken, permissionRouter)
 app.use('/api/auth', userRouter)
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 10000
 
 app.listen(port, () => {
     console.log("Running...")
