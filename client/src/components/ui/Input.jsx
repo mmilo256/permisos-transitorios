@@ -13,11 +13,11 @@ const Input = ({ label, type, options, value, onChange, placeholder, max, disabl
             break;
         case "select":
             // Renderiza un select si el tipo es "select"
-            input = <select disabled={disabled} value={value} onChange={onChange} className={inputStyles}>
+            input = <select disabled={disabled} value={value} onChange={onChange} className={`capitalize ${inputStyles}`}>
                 <option disabled value="">Seleccione una opción</option>
                 {/* Mapea las opciones para crear elementos <option> */}
                 {options.map((op, index) => (
-                    <option key={index} value={op}>{op}</option>
+                    <option className="capitalize" key={index} value={op}>{op}</option>
                 ))}
             </select>
             break;

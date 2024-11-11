@@ -1,4 +1,4 @@
-const Heading = ({ variant = "h1", children, align = "text-left" }) => {
+const Heading = ({ variant = "h1", capitalize, children, align = "text-left" }) => {
 
     let heading;
     let textAlign;
@@ -7,16 +7,16 @@ const Heading = ({ variant = "h1", children, align = "text-left" }) => {
 
     switch (variant) {
         case "h1":
-            heading = <h1 className={`${textAlign} py-5 text-3xl md:text-4xl ${headingStyles} ${align}`}>{children}</h1>
+            heading = <h1 className={`${textAlign} ${capitalize && "capitalize"} py-5 text-3xl md:text-4xl ${headingStyles} ${align}`}>{children}</h1>
             break;
         case "h2":
-            heading = <h2 className={`${textAlign} py-4 text-2xl md:text-3xl ${headingStyles} ${align}`}>{children}</h2>
+            heading = <h2 className={`${textAlign} ${capitalize && "capitalize"} py-4 text-2xl md:text-3xl ${headingStyles} ${align}`}>{children}</h2>
             break;
         case "h3":
-            heading = <h3 className={`${textAlign} py-3 text-xl md:text-2xl ${headingStyles} ${align}`}>{children}</h3>
+            heading = <h3 className={`${textAlign} ${capitalize && "capitalize"} py-3 text-xl md:text-2xl ${headingStyles} ${align}`}>{children}</h3>
             break;
         case "h4":
-            heading = <h3 className={`${textAlign} py-2 text-lg md:text-xl ${headingStyles} ${align}`}>{children}</h3>
+            heading = <h3 className={`${textAlign} ${capitalize && "capitalize"} py-2 text-lg md:text-xl ${headingStyles} ${align}`}>{children}</h3>
             break;
         default:
             heading = <h3>{children}</h3>

@@ -28,8 +28,6 @@ const OrganizationDetail = () => {
                 try {
                     const org = await getOrgById(id)
                     setOrganization(org.organization)
-                    const docs = await getDocsById(id)
-                    setDocuments(docs.docs)
                     const data = await getAllPermissions(1, id)
                     setPermissions(data.permissions)
                 } catch (error) {
@@ -41,6 +39,20 @@ const OrganizationDetail = () => {
             }
         )()
     }, [id])
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true)
+            try {
+                const docs = await getDocsById(id)
+                setDocuments(docs.docs)
+            } catch (error) {
+                console.log(error.message)
+            } finally {
+                setLoading(false)
+            }
+        })()
+    }, [refresh, id])
 
     const { org_name, org_rut, org_address, org_email, org_phone, org_type, president } = organization;
     const { name, rut, address, email, phone, phone2 } = president || {};
@@ -59,36 +71,41 @@ const OrganizationDetail = () => {
     return (
         <div>
             <Container>
-                <Heading variant="h1">{org_name}</Heading>
+                <Heading capitalize variant="h1">{org_name}</Heading>
+
+                <div className="max-w-60">
+                    <Button type="link" href="editar">Editar organización</Button>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-slate-700">
                     <div className="bg-white p-4 shadow">
                         <div>
                             <Heading variant="h4">Datos de la organización</Heading>
                             <div className="font-semibold">
-                                <p>Nombre: <span className="font-normal">{org_name}</span></p>
-                                <p>RUT: <span className="font-normal">{org_rut}</span></p>
-                                <p>Domicilio: <span className="font-normal">{org_address}</span></p>
+                                <p>Nombre: <span className="capitalize font-normal">{org_name}</span></p>
+                                <p>RUT: <span className="capitalize font-normal">{org_rut}</span></p>
+                                <p>Domicilio: <span className="capitalize font-normal">{org_address}</span></p>
                                 <p>Correo electrónico: <span className="font-normal">{org_email}</span></p>
-                                <p>Contacto: <span className="font-normal">{org_phone}</span></p>
-                                <p>Tipo de organización: <span className="font-normal">{org_type}</span></p>
+                                <p>Contacto: <span className="capitalize font-normal">{org_phone}</span></p>
+                                <p>Tipo de organización: <span className="capitalize font-normal">{org_type}</span></p>
                             </div>
                         </div>
                         <div>
                             <Heading variant="h4">Datos del representante legal</Heading>
                             <div className="font-semibold">
-                                <p>Nombre: <span className="font-normal">{name}</span></p>
-                                <p>RUT: <span className="font-normal">{rut}</span></p>
-                                <p>Domicilio: <span className="font-normal">{address}</span></p>
+                                <p>Nombre: <span className="capitalize font-normal">{name}</span></p>
+                                <p>RUT: <span className="capitalize font-normal">{rut}</span></p>
+                                <p>Domicilio: <span className="capitalize font-normal">{address}</span></p>
                                 <p>Correo electrónico: <span className="font-normal">{email}</span></p>
-                                <p>Contacto: <span className="font-normal">{phone}</span></p>
-                                <p>Contacto alternativo: <span className="font-normal">{phone2}</span></p>
+                                <p>Contacto: <span className="capitalize font-normal">{phone}</span></p>
+                                <p>Contacto alternativo: <span className="capitalize font-normal">{phone2}</span></p>
                             </div>
                         </div>
                     </div>
                     <div className="bg-white p-4 shadow">
                         <Heading variant="h4">Documentación relacionada</Heading>
                         <div className="mb-2 max-w-56">
-                            <Button href="docs" type="link">Agregar documentos</Button>
+                            <Button href={`docs`} type="link">Agregar documentos</Button>
                         </div>
                         <table className="w-full">
                             <thead className="bg-black text-white">

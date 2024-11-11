@@ -10,6 +10,7 @@ import ApproveRequest from "./components/admin-panel/ApproveRequest"
 import Home from "./components/admin-panel/Home"
 import FormLayout from "./components/admin-panel/FormLayout"
 import PermissionDetail from "./components/admin-panel/PermissionDetail"
+import EditOrganization from "./components/admin-panel/EditOrganization"
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<PrivateRoute><FormLayout><Home /></FormLayout></PrivateRoute>} />
         <Route path="permisos/:id" element={<PrivateRoute><FormLayout><PermissionDetail /></FormLayout></PrivateRoute>} />
         <Route path="agregar-organizacion" element={<PrivateRoute> <FormLayout><AddOrganization /></FormLayout> </PrivateRoute>} />
+        <Route path=":id/editar" element={<PrivateRoute> <FormLayout><EditOrganization /></FormLayout> </PrivateRoute>} />
         <Route path=":id" element={<PrivateRoute> <FormLayout><OrganizationDetail /></FormLayout> </PrivateRoute>} />
         <Route path=":id/docs" element={<PrivateRoute><FormLayout><DocsManager /></FormLayout></PrivateRoute>} />
         <Route path="solicitudes" element={<PrivateRoute><FormLayout><Applications /></FormLayout></PrivateRoute>} />

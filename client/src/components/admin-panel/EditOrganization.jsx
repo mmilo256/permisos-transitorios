@@ -2,32 +2,53 @@ import { useEffect, useState } from 'react'
 import Heading from '../ui/Heading'
 import Container from '../ui/Container'
 import Input from '../ui/Input'
-import { createOrganization } from '../../services/organizationServices'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { getOrgById, updateOrganization } from '../../services/organizationServices'
+import { useNavigate, useParams } from 'react-router-dom'
 import { formatRut, onlyNumberInput, verifyRut } from '../../utils/utils'
 import { ORG_TYPES } from '../../constants/constants'
 
-const AddOrganization = () => {
+const EditOrganization = () => {
 
     const navigate = useNavigate()
-    const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
-    const org = Object.fromEntries(queryParams.entries());
 
-    const [orgName, setOrgName] = useState(org.org_name ? org.org_name : "");
-    const [orgRut, setOrgRut] = useState(org.org_rut ? org.org_rut : "");
-    const [orgAddress, setOrgAddress] = useState(org.org_address ? org.org_address : "");
-    const [orgEmail, setOrgEmail] = useState(org.org_email ? org.org_email : "");
-    const [orgPhone, setOrgPhone] = useState(org.org_phone ? org.org_phone : "");
-    const [orgType, setOrgType] = useState(org.org_type ? org.org_type : "");
-    const [personName, setPersonName] = useState(org.owner_name ? org.owner_name : "");
-    const [personRut, setPersonRut] = useState(org.owner_rut ? org.owner_rut : "");
-    const [personAddress, setPersonAddress] = useState(org.owner_address ? org.owner_address : "");
-    const [personEmail, setPersonEmail] = useState(org.owner_email ? org.owner_email : "");
-    const [personPhone, setPersonPhone] = useState(org.owner_phone ? org.owner_phone : "");
-    const [personPhone2, setPersonPhone2] = useState(org.owner_phone2 ? org.owner_phone2 : "");
+    const { id } = useParams()
+
+    const [orgName, setOrgName] = useState("");
+    const [orgRut, setOrgRut] = useState("");
+    const [orgAddress, setOrgAddress] = useState("");
+    const [orgEmail, setOrgEmail] = useState("");
+    const [orgPhone, setOrgPhone] = useState("");
+    const [orgType, setOrgType] = useState("");
+    const [personName, setPersonName] = useState("");
+    const [personRut, setPersonRut] = useState("");
+    const [personAddress, setPersonAddress] = useState("");
+    const [personEmail, setPersonEmail] = useState("");
+    const [personPhone, setPersonPhone] = useState("");
+    const [personPhone2, setPersonPhone2] = useState("");
 
     const [isValid, setIsValid] = useState(false)
+
+    useEffect(() => {
+        (async () => {
+            const res = await getOrgById(id)
+            const data = res.organization
+            setOrgName(data.org_name)
+            setOrgRut(data.org_rut)
+            setOrgAddress(data.org_address)
+            setOrgEmail(data.org_email)
+            setOrgPhone(data.org_phone)
+            setOrgType(data.org_type)
+            setPersonName(data.president.name)
+            setPersonRut(data.president.rut)
+            setPersonAddress(data.president.address)
+            setPersonEmail(data.president.email)
+            setPersonPhone(data.president.phone)
+            setPersonPhone2(data.president.phone2)
+            console.log(data)
+        })()
+    }, [id])
+
+
 
     useEffect(() => {
         if (orgName.length >= 3 && orgRut.length >= 10 && orgAddress.length >= 3 && orgEmail.length >= 3 && orgPhone.length >= 8 && orgType && personName.length >= 3 && personRut.length >= 10 && personAddress.length >= 3 && personEmail.length >= 3 && personPhone.length >= 8) {
@@ -55,18 +76,11 @@ const AddOrganization = () => {
             phone: personPhone,
             phone2: personPhone2
         }
-
         if (isOrgRutValid && isPresidentRutValid) {
             try {
-                const { status, message } = await createOrganization(orgData)
-                alert(message)
-                if (status === "success") {
-                    if (queryParams.size > 0) {
-                        navigate(`/solicitudes/${org.id}`)
-                    } else {
-                        navigate("/")
-                    }
-                }
+                await updateOrganization(id, orgData)
+                alert("Organización modificada exitosamente")
+                navigate(`/${id}`)
             } catch (error) {
                 alert(`No se pudo crear la organización. Error: ${error.message}`)
             }
@@ -104,7 +118,7 @@ const AddOrganization = () => {
                         <Input max={9} value={personPhone2} onChange={(e) => { setPersonPhone2(onlyNumberInput(e.target.value)) }} label="Teléfono 2 (opcional)" />
                     </div>
                     <div className='flex justify-end mt-4'>
-                        <input disabled={!isValid} className='cursor-pointer bg-primary hover:bg-primaryHover disabled:bg-blue-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center' type="submit" value="Agregar" />
+                        <input disabled={!isValid} className='cursor-pointer bg-primary hover:bg-primaryHover disabled:bg-blue-400 disabled:cursor-not-allowed text-white py-3 px-5 font-bold  text-center' type="submit" value="Guardar cambios" />
                     </div>
                 </form>
             </Container>
@@ -112,4 +126,4 @@ const AddOrganization = () => {
     )
 }
 
-export default AddOrganization
+export default EditOrganization

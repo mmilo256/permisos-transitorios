@@ -21,17 +21,18 @@ const Request = sequelize.define('requests', {
     owner_phone2: DataTypes.STRING,
     activity_name: DataTypes.STRING,
     place: DataTypes.STRING,
-    start_date: DataTypes.STRING,
-    start_time: DataTypes.STRING,
-    end_date: DataTypes.STRING,
-    end_time: DataTypes.STRING,
+    start_date: DataTypes.DATEONLY,
+    start_time: DataTypes.TIME,
+    end_date: DataTypes.DATEONLY,
+    end_time: DataTypes.TIME,
     is_alcohol: DataTypes.BOOLEAN,
     is_food: DataTypes.BOOLEAN,
     description: DataTypes.STRING,
     purpose: DataTypes.STRING,
+    folio: DataTypes.INTEGER,
     docs: DataTypes.JSON,
     status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('pendiente', 'rechazada', 'aprobada', 'firmada', 'enviada'),
         defaultValue: "pendiente"
     },
     request_date: {

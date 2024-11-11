@@ -5,7 +5,7 @@ const Table = ({ columns, data }) => {
                 <thead className="bg-primary text-white">
                     <tr>
                         {columns && columns.map((col, index) => (
-                            <th className="border text-left p-2" key={index}>{col}</th>
+                            <th className="text-sm border text-left p-2" key={index}>{col}</th>
                         ))}
                     </tr>
                 </thead>
@@ -13,7 +13,7 @@ const Table = ({ columns, data }) => {
                     {data && data.map((row, index) => (
                         <tr key={index}>
                             {Object.values(row).map((cell, index) => (
-                                <td className="border p-2 bg-white" key={index}>{cell}</td>
+                                <td className="text-sm text-nowrap max-w-52 truncate border p-2 capitalize bg-white" key={index}>{cell}</td>
                             ))}
                         </tr>
                     ))}

@@ -28,6 +28,15 @@ export const updateRequest = async (id, status) => {
         console.log(error)
     }
 }
+export const updateFolio = async (id, folio) => {
+    try {
+        const res = await api.patch(`/solicitudes/${id}/folio`, { folio })
+        const data = await res.data
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const createApplication = async (data, config) => {
     try {

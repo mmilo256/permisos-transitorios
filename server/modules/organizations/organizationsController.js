@@ -137,9 +137,40 @@ export const deleteOrganization = async (req, res) => {
 export const updateOrganization = async (req, res) => {
     try {
         const { id } = req.params
-        const updates = { ...req.body }
-        await Organization.update(updates, { where: { id } })
-        res.status(200).json(updates)
+        const {
+            org_name,
+            org_rut,
+            org_address,
+            org_email,
+            org_phone,
+            org_type,
+            name,
+            rut,
+            address,
+            email,
+            phone,
+            phone2
+        } = req.body
+        const updates = {}
+        const updates2 = {}
+        if (org_name) updates.org_name = org_name.toLowerCase()
+        if (org_rut) updates.org_rut = org_rut.toUpperCase()
+        if (org_address) updates.org_address = org_address.toLowerCase()
+        if (org_email) updates.org_email = org_email.toLowerCase()
+        if (org_phone) updates.org_phone = org_phone
+        if (org_type) updates.org_type = org_type.toLowerCase()
+        if (name) updates2.name = name.toLowerCase()
+        if (rut) updates2.rut = rut.toUpperCase()
+        if (address) updates2.address = address.toLowerCase()
+        if (email) updates2.email = email.toLowerCase()
+        if (phone) updates2.phone = phone.toLowerCase()
+        if (phone2) updates2.phone2 = phone2.toLowerCase()
+
+        const result = sequelize.transaction(async (t) => {
+            const org = await Organization.update(updates, { transaction: t, where: { id } })
+            const president = await President.update(updates2, { transaction: t, where: { id } })
+            res.status(200).json({ message: "Organización modificada exitosamente", org, president })
+        })
     } catch (error) {
         console.log(error)
     }
@@ -153,18 +184,18 @@ export const createOrganization = async (req, res) => {
             return res.json({ status: "error", message: "La organización ya existe" })
         }
         const organizationData = {
-            org_name,
-            org_rut,
-            org_address,
-            org_email,
+            org_name: org_name.toLowerCase(),
+            org_rut: org_rut.toUpperCase(),
+            org_address: org_address.toLowerCase(),
+            org_email: org_email.toLowerCase(),
             org_phone,
-            org_type
+            org_type: org_type.toLowerCase()
         };
         const presidentData = {
-            name,
-            rut,
-            address,
-            email,
+            name: name.toLowerCase(),
+            rut: rut.toUpperCase(),
+            address: address.toLowerCase(),
+            email: email.toLowerCase(),
             phone,
             phone2
         }

@@ -68,7 +68,6 @@ export const getDocsById = async (id) => {
 }
 export const uploadDocs = async (id, docs) => {
     const token = getToken()
-    console.log(token)
     try {
         const res = await api.post(`/organizaciones/${id}/upload`, docs, {
             headers: {
@@ -99,6 +98,17 @@ export const createOrganization = async (organization) => {
     const token = getToken()
     try {
         const res = await api.post(`organizaciones`, organization, { headers: { Authorization: `Bearer ${token}` } })
+        const data = res.data
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateOrganization = async (id, orgData) => {
+    const token = getToken()
+    try {
+        const res = await api.patch(`organizaciones/${id}`, orgData, { headers: { Authorization: `Bearer ${token}` } })
         const data = res.data
         return data
     } catch (error) {

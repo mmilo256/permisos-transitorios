@@ -127,6 +127,7 @@ const ApproveRequest = () => {
     return (
         <Container>
             <Heading variant="h2">Generar permiso transitorio</Heading>
+            <p className="bg-sky-200 text-sky-600 p-2 mb-2 rounded">Organización: <strong className="uppercase">{orgData.originalOrg}</strong></p>
             <form>
 
                 <div className='grid grid-cols-2 gap-2 pb-4'>

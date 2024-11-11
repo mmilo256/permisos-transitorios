@@ -31,11 +31,11 @@ const PermissionDetail = () => {
                 <div className="grid grid-cols-2 gap-4 text-lg">
                     <div>
                         <p className="font-bold">Nombre de la actividad</p>
-                        <p>{permission.activity_name}</p>
+                        <p className="capitalize">{permission.activity_name}</p>
                     </div>
                     <div>
                         <p className="font-bold">Lugar de realización</p>
-                        <p>{permission.place}</p>
+                        <p className="capitalize">{permission.place}</p>
                     </div>
                     <div>
                         <p className="font-bold">Fecha de inicio</p>

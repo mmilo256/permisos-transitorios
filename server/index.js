@@ -18,7 +18,10 @@ import Request from './modules/requests/requestsModel.js';
 import Document from './modules/docs/docsModel.js';
 import { verifyToken } from './modules/users/usersMiddleware.js';
 const app = e()
-app.use(cors())
+app.use(cors({
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true
+}))
 
 // Creación de tablas al inicializar la aplicación por primera vez
 await User.sync()
@@ -73,5 +76,5 @@ app.use('/api/auth', userRouter)
 const port = process.env.PORT || 4000
 
 app.listen(port, () => {
-    console.log("Running...")
+    console.log("Running on", port)
 })

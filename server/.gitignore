@@ -1,1 +1,5 @@
 .env
+decretos/*
+!decretos/.gitkeep
+uploads/*
+!uploads/.gitkeep

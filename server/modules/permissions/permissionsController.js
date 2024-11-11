@@ -39,16 +39,16 @@ export const createPermission = async (req, res) => {
         }
         // Datos del permiso
         const permissionData = {
-            activity_name,
-            place,
+            activity_name: activity_name.toLowerCase(),
+            place: place.toLowerCase(),
             start_date,
             start_time,
             end_date,
             end_time,
             is_alcohol,
             is_food,
-            description,
-            purpose,
+            description: description.toLowerCase(),
+            purpose: purpose.toLowerCase(),
             organizationId
         }
         const formattedData = generateAct(actData)
@@ -87,7 +87,30 @@ export const getAllPermissions = async (req, res) => {
 export const updatePermission = async (req, res) => {
     try {
         const { id } = req.params
-        const updates = { ...req.body }
+        const {
+            activity_name,
+            place,
+            start_date,
+            start_time,
+            end_date,
+            end_time,
+            is_alcohol,
+            is_food,
+            description,
+            purpose
+        } = req.body
+        const updates = {}
+        if (activity_name) updates.activity_name = activity_name.toLowerCase()
+        if (place) updates.place = place.toLowerCase()
+        if (start_date) updates.start_date = start_date
+        if (start_time) updates.start_time = start_time
+        if (end_date) updates.end_date = end_date
+        if (end_time) updates.end_time = end_time
+        if (is_alcohol) updates.is_alcohol = is_alcohol
+        if (is_food) updates.is_food = is_food
+        if (description) updates.description = description.toLowerCase()
+        if (purpose) updates.purpose = purpose.toLowerCase()
+
         await Permission.update(updates, { where: { id } })
         res.status(200).json(updates)
     } catch (error) {

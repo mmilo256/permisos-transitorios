@@ -18,7 +18,7 @@ const Tabs = ({ options, onItemClick }) => {
             <div className={`flex flex-col md:py-2 md:block ${!filtersTab && "hidden"} overflow-hidden`}>
                 <button onClick={() => { handleClick("") }} className="border-b-2 border-b-gray-50 px-4 hover:border-b-2 hover:border-b-primary">Todos</button>
                 {options.map((option, index) => (
-                    <button onClick={() => { handleClick(option) }} className="border-b-2 border-b-gray-50 px-4 hover:border-b-2 hover:border-b-primary" key={index}>{option}</button>
+                    <button onClick={() => { handleClick(option) }} className="border-b-2 capitalize border-b-gray-50 px-4 hover:border-b-2 hover:border-b-primary" key={index}>{option}</button>
                 ))}
             </div>
         </nav>
