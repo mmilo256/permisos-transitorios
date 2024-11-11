@@ -11,8 +11,22 @@ import Home from "./components/admin-panel/Home"
 import FormLayout from "./components/admin-panel/FormLayout"
 import PermissionDetail from "./components/admin-panel/PermissionDetail"
 import EditOrganization from "./components/admin-panel/EditOrganization"
+import { useEffect, useState } from "react"
+import { getAllApplications } from "./services/webFormServices"
 
 const App = () => {
+
+  const [req, setReq] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      const data = await getAllApplications()
+      setReq(data)
+    })()
+  }, [])
+
+  console.log(req.requests)
+
   return (
     <div className="bg-slate-50 min-h-svh text-slate-800">
       <Routes>
