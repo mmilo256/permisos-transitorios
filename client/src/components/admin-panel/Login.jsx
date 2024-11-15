@@ -30,10 +30,10 @@ const Login = () => {
     return (
         <div className="h-svh bg-teal-600 flex justify-center items-center">
             <div className="bg-white max-w-96 w-[95%]  rounded p-4 shadow">
-                <h2 className="text-center text-2xl border-b border-slate-300 mb-2 pb-2">Iniciar sesión</h2>
+                <h2 className="text-center text-2xl border-b border-slate-300 mb-2 pb-2">Permisos Transitorios</h2>
                 <form onSubmit={handleSubmit} action="">
                     <Input value={username} onChange={(e) => { setUsername(e.target.value) }} label="Nombre de usuario" />
-                    <Input value={password} onChange={(e) => { setPassword(e.target.value) }} label="Contraseña" />
+                    <Input value={password} type="password" onChange={(e) => { setPassword(e.target.value) }} label="Contraseña" />
                     <div className="mt-4">
                         <Button fullWidth type="submit">Ingresar</Button>
                     </div>

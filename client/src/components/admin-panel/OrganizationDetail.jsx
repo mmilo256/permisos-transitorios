@@ -73,7 +73,7 @@ const OrganizationDetail = () => {
             <Container>
                 <Heading capitalize variant="h1">{org_name}</Heading>
 
-                <div className="max-w-60">
+                <div className="max-w-60 mb-4">
                     <Button type="link" href="editar">Editar organización</Button>
                 </div>
 
